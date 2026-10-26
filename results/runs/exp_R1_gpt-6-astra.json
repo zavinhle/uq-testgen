@@ -1,0 +1,1017 @@
+{
+ "run_id": "exp_R1_gpt-6-astra",
+ "rid": "R1",
+ "requirement": {
+  "title": "Steady following time gap",
+  "text": "When the ego vehicle follows a slower lead vehicle in its lane, after an initial settling period of 10 s the time headway to the lead vehicle shall be at least 1.2 s."
+ },
+ "model": "gpt-6-astra",
+ "n": 10,
+ "wall_seconds": 48.10885099999996,
+ "batch_uq": {
+  "struct_entropy": 0.14118174150460758,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 2,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.9810000000000001
+ },
+ "samples": [
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 0,
+   "latency_s": 13.084538500000235,
+   "tokens": 2769,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A faster ego approaches a constant-speed slower lead in the same lane, testing whether ACC maintains at least 1.2 s time headway throughout the interval after the 10 s settling period.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.581820131669327,
+     "min_gap": 39.20009299116566,
+     "min_ttc": 7.716262975778546,
+     "max_decel": 4.399999999999995,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.009766799999852
+   },
+   "raw": "{\n  \"rationale\": \"A faster ego approaches a constant-speed slower lead in the same lane, testing whether ACC maintains at least 1.2 s time headway throughout the interval after the 10 s settling period.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 22, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 1,
+   "latency_s": 16.93125020000025,
+   "tokens": 2767,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A persistent slower lead vehicle in the ego lane requires ACC to reduce speed and maintain at least 1.2 s time headway throughout the interval after the 10 s settling period.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.110301899998376
+   },
+   "raw": "{\n  \"rationale\": \"A persistent slower lead vehicle in the ego lane requires ACC to reduce speed and maintain at least 1.2 s time headway throughout the interval after the 10 s settling period.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 2,
+   "latency_s": 18.41133069999978,
+   "tokens": 2792,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower lead vehicle remains in the ego lane while the ego's higher set speed sustains following, checking the minimum 1.2 s headway continuously after the 10 s settling period.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.990683099998023
+   },
+   "raw": "{\n  \"rationale\": \"A slower lead vehicle remains in the ego lane while the ego's higher set speed sustains following, checking the minimum 1.2 s headway continuously after the 10 s settling period.\",\n  \"duration\": 40,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 30,\n    \"set_speed\": 30\n  },\n  \"npcs\": [\n    {\n      \"id\": \"lead\",\n      \"lane\": 1,\n      \"rel_x\": 60,\n      \"speed\": 20,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"time_headway\",\n      \"params\": {\n        \"h\": 1.2,\n        \"t_from\": 10\n      }\n    }\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 3,
+   "latency_s": 13.46913450000011,
+   "tokens": 2767,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A continuously slower lead vehicle in the ego lane forces the ACC to reduce speed and maintain at least 1.2 s headway throughout the interval after the 10 s settling period.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9331003999996028
+   },
+   "raw": "{\n  \"rationale\": \"A continuously slower lead vehicle in the ego lane forces the ACC to reduce speed and maintain at least 1.2 s headway throughout the interval after the 10 s settling period.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 4,
+   "latency_s": 11.869288100000631,
+   "tokens": 2797,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A continuously slower lead vehicle exercises ACC following and a further slowdown after settling checks that headway remains at least 1.2 s throughout the required interval.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 25,
+      "events": [
+       {
+        "t": 20,
+        "type": "set_speed",
+        "target_speed": 20,
+        "rate": 2
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.9999999999999998,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.4999999999999999,
+    "features": {
+     "verdict": true,
+     "robustness": 0.560631575885215,
+     "min_gap": 36.017366403652545,
+     "min_ttc": 12.210095497953617,
+     "max_decel": 1.6999999999999993,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9178954999997586
+   },
+   "raw": "{\n  \"rationale\": \"A continuously slower lead vehicle exercises ACC following and a further slowdown after settling checks that headway remains at least 1.2 s throughout the required interval.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\n      \"id\": \"lead\",\n      \"lane\": 1,\n      \"rel_x\": 60,\n      \"speed\": 25,\n      \"events\": [\n        {\"t\": 20, \"type\": \"set_speed\", \"target_speed\": 20, \"rate\": 2}\n      ]\n    }\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 5,
+   "latency_s": 11.61116680000032,
+   "tokens": 2773,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower lead vehicle remains in the ego lane while the ego's higher set speed sustains following, checking that time headway stays at least 1.2 s from 10 s onward.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9821106000008513
+   },
+   "raw": "{\n  \"rationale\": \"A slower lead vehicle remains in the ego lane while the ego's higher set speed sustains following, checking that time headway stays at least 1.2 s from 10 s onward.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 6,
+   "latency_s": 12.725451400000566,
+   "tokens": 2775,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower lead vehicle remains in the ego lane while the ego approaches at its higher set speed, testing whether ACC establishes and continuously maintains at least 1.2 s headway after the 10 s settling period.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9185840000000098
+   },
+   "raw": "{\n  \"rationale\": \"A slower lead vehicle remains in the ego lane while the ego approaches at its higher set speed, testing whether ACC establishes and continuously maintains at least 1.2 s headway after the 10 s settling period.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 7,
+   "latency_s": 12.576333400000294,
+   "tokens": 2770,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower lead vehicle remains in the ego lane while the ego's higher set speed demands sustained following, checking the minimum 1.2 s headway throughout the period after 10 s of settling.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 45,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000007142266084,
+     "min_gap": 36.00003133931136,
+     "min_ttc": 9.456598447424136,
+     "max_decel": 4.150000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8718726000006427
+   },
+   "raw": "{\n  \"rationale\": \"A slower lead vehicle remains in the ego lane while the ego's higher set speed demands sustained following, checking the minimum 1.2 s headway throughout the period after 10 s of settling.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 25, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 45, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 8,
+   "latency_s": 13.0459163000005,
+   "tokens": 2763,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A persistent slower lead vehicle in the ego lane forces ACC to settle into following, with the required minimum time headway checked continuously from 10 s onward.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 65,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000031068369847,
+     "min_gap": 36.00013632408252,
+     "min_ttc": 6.63002404671934,
+     "max_decel": 4.450000000000003,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.996187399999144
+   },
+   "raw": "{\n  \"rationale\": \"A persistent slower lead vehicle in the ego lane forces ACC to settle into following, with the required minimum time headway checked continuously from 10 s onward.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 65, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R1",
+   "model": "gpt-6-astra",
+   "idx": 9,
+   "latency_s": 13.16654920000019,
+   "tokens": 2764,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A persistent slower lead vehicle challenges the ACC to reduce ego speed during settling and maintain at least 1.2 s time headway from 10 s onward.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.2,
+       "t_from": 10
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6000023127738836,
+     "min_gap": 36.0001014815432,
+     "min_ttc": 6.137931034482757,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "following a slower lead 100% of evaluation window",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0596602000014173
+   },
+   "raw": "{\n  \"rationale\": \"A persistent slower lead vehicle challenges the ACC to reduce ego speed during settling and maintain at least 1.2 s time headway from 10 s onward.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 60, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"time_headway\", \"params\": {\"h\": 1.2, \"t_from\": 10}}\n  ],\n  \"confidence\": 0.98\n}"
+  }
+ ]
+}

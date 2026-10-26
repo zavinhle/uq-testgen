@@ -1,0 +1,935 @@
+{
+ "run_id": "exp_R4_gpt-5.6-terra",
+ "rid": "R4",
+ "requirement": {
+  "title": "Set-speed limit",
+  "text": "On a free road (no vehicle ahead in the ego lane), the ego speed shall never exceed the driver set speed by more than 1 m/s."
+ },
+ "model": "gpt-5.6-terra",
+ "n": 10,
+ "wall_seconds": 49.46917200000007,
+ "batch_uq": {
+  "struct_entropy": 0.2652949955741215,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 2,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.975
+ },
+ "samples": [
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 0,
+   "latency_s": 17.74947659999998,
+   "tokens": 13540,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "On an unobstructed road, accelerating from below the set speed verifies that ACC does not overshoot the allowed 1 m/s margin.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.6666666666666666,
+    "U_comb": 0.2738562088841366,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000002700050992,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.4431965999992826
+   },
+   "raw": "{\"rationale\":\"On an unobstructed road, accelerating from below the set speed verifies that ACC does not overshoot the allowed 1 m/s margin.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 1,
+   "latency_s": 16.834633000000395,
+   "tokens": 13526,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Starting below the set speed on an empty ego lane verifies that ACC acceleration never overshoots the allowed set-speed margin.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 15,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "adjacent_front",
+      "lane": 0,
+      "rel_x": 80,
+      "speed": 25,
+      "events": []
+     },
+     {
+      "id": "adjacent_rear",
+      "lane": 2,
+      "rel_x": -40,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0516339866619144,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000002700050992,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3968204000002515
+   },
+   "raw": "{\"rationale\":\"Starting below the set speed on an empty ego lane verifies that ACC acceleration never overshoots the allowed set-speed margin.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":15,\"set_speed\":25},\"npcs\":[{\"id\":\"adjacent_front\",\"lane\":0,\"rel_x\":80,\"speed\":25,\"events\":[]},{\"id\":\"adjacent_rear\",\"lane\":2,\"rel_x\":-40,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 2,
+   "latency_s": 11.681865900000048,
+   "tokens": 13273,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road scenario with the ego initially below the set speed verifies that ACC acceleration never overshoots the permitted set-speed margin.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 15,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0516339866619144,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000002700050992,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.38934210000115854
+   },
+   "raw": "{\"rationale\":\"A free-road scenario with the ego initially below the set speed verifies that ACC acceleration never overshoots the permitted set-speed margin.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":15,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 3,
+   "latency_s": 15.453496300000552,
+   "tokens": 3512,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road acceleration scenario directly checks that ACC regulates ego speed to within the required 1 m/s margin of the driver set speed.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 15,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.5228787452803376,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.17429291509344588,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6217489000000569
+   },
+   "raw": "{\"rationale\":\"A free-road acceleration scenario directly checks that ACC regulates ego speed to within the required 1 m/s margin of the driver set speed.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":15,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}},{\"template\":\"no_collision\",\"params\":{}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 4,
+   "latency_s": 14.860403200000292,
+   "tokens": 1446,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road acceleration scenario directly checks that ACC speed control never exceeds the driver set speed by more than 1 m/s.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0516339866619144,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000584296984,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6695005999990826
+   },
+   "raw": "{\"rationale\":\"A free-road acceleration scenario directly checks that ACC speed control never exceeds the driver set speed by more than 1 m/s.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 5,
+   "latency_s": 11.165631399999256,
+   "tokens": 13609,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "On a free road, this test verifies that ACC accelerates to and regulates the driver set speed without exceeding it by more than 1 m/s.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.6666666666666666,
+    "U_comb": 0.2738562088841366,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000002700050992,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6430915000000823
+   },
+   "raw": "{\"rationale\":\"On a free road, this test verifies that ACC accelerates to and regulates the driver set speed without exceeding it by more than 1 m/s.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 6,
+   "latency_s": 15.403764200000296,
+   "tokens": 1276,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road scenario with the ego initially below the set speed verifies that ACC acceleration never overshoots the allowed set-speed margin.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "adjacent_vehicle",
+      "lane": 0,
+      "rel_x": 80,
+      "speed": 28,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.5228787452803376,
+    "U_behav": 0.0,
+    "U_oracle": 0.6666666666666666,
+    "U_comb": 0.3965151373156681,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0573694999993677
+   },
+   "raw": "{\"rationale\":\"A free-road scenario with the ego initially below the set speed verifies that ACC acceleration never overshoots the allowed set-speed margin.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[{\"id\":\"adjacent_vehicle\",\"lane\":0,\"rel_x\":80,\"speed\":28,\"events\":[]}],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}},{\"template\":\"no_collision\",\"params\":{}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 7,
+   "latency_s": 15.598144499999762,
+   "tokens": 13526,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A sustained free-road drive verifies that ACC never overshoots the driver set speed by more than 1 m/s.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0516339866619144,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000002807,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6997207999993407
+   },
+   "raw": "{\"rationale\":\"A sustained free-road drive verifies that ACC never overshoots the driver set speed by more than 1 m/s.\",\"duration\":60,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 8,
+   "latency_s": 12.637788200000614,
+   "tokens": 1448,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road acceleration scenario verifies that ACC settles at the driver set speed without overshooting the allowed 1 m/s margin.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.1549019599857432,
+    "U_behav": 0.0,
+    "U_oracle": 0.6666666666666666,
+    "U_comb": 0.2738562088841366,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0001232216458185,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.4975410000006377
+   },
+   "raw": "{\"rationale\":\"A free-road acceleration scenario verifies that ACC settles at the driver set speed without overshooting the allowed 1 m/s margin.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-terra",
+   "idx": 9,
+   "latency_s": 15.766895099999601,
+   "tokens": 3300,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road acceleration scenario verifies that ACC regulates ego speed to within the required 1 m/s margin above the driver set speed.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 10,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.5228787452803376,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.17429291509344588,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.47053219999725115
+   },
+   "raw": "{\"rationale\":\"A free-road acceleration scenario verifies that ACC regulates ego speed to within the required 1 m/s margin above the driver set speed.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":10,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.98}"
+  }
+ ]
+}

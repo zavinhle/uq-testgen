@@ -1,0 +1,1032 @@
+{
+ "run_id": "exp_R7_gpt-6-astra",
+ "rid": "R7",
+ "requirement": {
+  "title": "Comfortable approach",
+  "text": "When the ego vehicle approaches a slower vehicle in its lane starting from a gap of more than 100 m with a speed difference of at most 10 m/s, it shall adapt its speed comfortably: the ego deceleration shall never exceed 3 m/s^2."
+ },
+ "model": "gpt-6-astra",
+ "n": 10,
+ "wall_seconds": 50.808967900000425,
+ "batch_uq": {
+  "struct_entropy": 0.21732201127364886,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 2,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.974
+ },
+ "samples": [
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 0,
+   "latency_s": 12.310003900000083,
+   "tokens": 2782,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, testing comfortable adaptation near both requirement boundaries.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.000450964592005,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8852131000003283
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, testing comfortable adaptation near both requirement boundaries.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.97\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 1,
+   "latency_s": 14.971847800000432,
+   "tokens": 2801,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle 101 m ahead with an initial closing speed of 10 m/s tests the inclusive speed-difference boundary and a gap just above 100 m while checking that ego deceleration never exceeds 3 m/s^2.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3326400000005378
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle 101 m ahead with an initial closing speed of 10 m/s tests the inclusive speed-difference boundary and a gap just above 100 m while checking that ego deceleration never exceeds 3 m/s^2.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 2,
+   "latency_s": 14.05508860000009,
+   "tokens": 2777,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A steady lead vehicle 101 m ahead and 10 m/s slower exercises the permitted closing-speed boundary just above the initial-gap threshold, checking that ego deceleration never exceeds 3 m/s\u00b2.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.6989700043360187,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.3494850021680094,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0834525745411412,
+     "min_gap": 36.000450964592005,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9249607000010656
+   },
+   "raw": "{\n  \"rationale\": \"A steady lead vehicle 101 m ahead and 10 m/s slower exercises the permitted closing-speed boundary just above the initial-gap threshold, checking that ego deceleration never exceeds 3 m/s\u00b2.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 3,
+   "latency_s": 12.317956599999889,
+   "tokens": 14434,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, testing comfortable adaptation at the requirement's speed-difference boundary.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.2603624999992462
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, testing comfortable adaptation at the requirement's speed-difference boundary.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 4,
+   "latency_s": 10.512643099999877,
+   "tokens": 2780,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle starts 101 m ahead with a closing speed of 10 m/s, testing comfortable ACC adaptation near both triggering boundaries of R7.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.306905800000095
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle starts 101 m ahead with a closing speed of 10 m/s, testing comfortable ACC adaptation near both triggering boundaries of R7.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.97\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 5,
+   "latency_s": 12.42345700000078,
+   "tokens": 2784,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A steady lead vehicle 101 m ahead and 10 m/s slower exercises the maximum permitted closing speed just above the initial gap threshold while checking the deceleration bound throughout the approach.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3528126999999586
+   },
+   "raw": "{\n  \"rationale\": \"A steady lead vehicle 101 m ahead and 10 m/s slower exercises the maximum permitted closing speed just above the initial gap threshold while checking the deceleration bound throughout the approach.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.97\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 6,
+   "latency_s": 14.225417600000583,
+   "tokens": 2788,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle 101 m ahead with an initial closing speed of 10 m/s tests comfortable adaptation at the permitted speed-difference boundary and just above the gap threshold.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.000450964592005,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8530609999997978
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle 101 m ahead with an initial closing speed of 10 m/s tests comfortable adaptation at the permitted speed-difference boundary and just above the gap threshold.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.96\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 7,
+   "latency_s": 13.61248760000035,
+   "tokens": 2783,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle 101 m ahead with a closing speed of exactly 10 m/s tests comfortable adaptation near the initial-gap boundary and at the maximum permitted speed difference.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3038930000002438
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle 101 m ahead with a closing speed of exactly 10 m/s tests comfortable adaptation near the initial-gap boundary and at the maximum permitted speed difference.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.97\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 8,
+   "latency_s": 11.335551299999679,
+   "tokens": 2772,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle 101 m ahead in the ego lane with a 10 m/s closing speed tests comfortable adaptation at the maximum permitted speed difference and just above the gap threshold.",
+    "duration": 40,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.6989700043360187,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.3494850021680094,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0834525745411412,
+     "min_gap": 36.000450964592005,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.904018700000961
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle 101 m ahead in the ego lane with a 10 m/s closing speed tests comfortable adaptation at the maximum permitted speed difference and just above the gap threshold.\",\n  \"duration\": 40,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}}\n  ],\n  \"confidence\": 0.98\n}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-6-astra",
+   "idx": 9,
+   "latency_s": 14.545290800000657,
+   "tokens": 2788,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, exercising R7 near its initial-gap boundary and at its maximum permitted speed difference.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 101,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.09691001300805638,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.04845500650402819,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.0000010029828,
+     "min_ttc": 7.513008242086694,
+     "max_decel": 1.9165474254588588,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 100 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3744315000012648
+   },
+   "raw": "{\n  \"rationale\": \"A constant-speed lead vehicle starts 101 m ahead in the ego lane with a closing speed of 10 m/s, exercising R7 near its initial-gap boundary and at its maximum permitted speed difference.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 30, \"set_speed\": 30},\n  \"npcs\": [\n    {\"id\": \"lead\", \"lane\": 1, \"rel_x\": 101, \"speed\": 20, \"events\": []}\n  ],\n  \"oracle\": [\n    {\"template\": \"max_decel\", \"params\": {\"a\": 3}},\n    {\"template\": \"no_collision\", \"params\": {}}\n  ],\n  \"confidence\": 0.98\n}"
+  }
+ ]
+}

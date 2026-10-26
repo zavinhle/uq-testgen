@@ -1,0 +1,1102 @@
+{
+ "run_id": "exp_R2_gpt-5.6-luna",
+ "rid": "R2",
+ "requirement": {
+  "title": "Lead vehicle emergency braking",
+  "text": "If the lead vehicle in the ego lane brakes with a deceleration of up to 6 m/s^2, the ego vehicle shall not collide and shall keep a bumper-to-bumper gap of at least 2 m."
+ },
+ "model": "gpt-5.6-luna",
+ "n": 10,
+ "wall_seconds": 48.90317140000025,
+ "batch_uq": {
+  "struct_entropy": 0.0,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 1,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.967
+ },
+ "samples": [
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 0,
+   "latency_s": 15.133753600000091,
+   "tokens": 2528,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the ACC response when a lead vehicle in the ego lane brakes sharply at 4 m/s^2, requiring collision avoidance and a sustained minimum 2 m bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead_vehicle",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 25,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 7.395652662760426,
+     "min_ttc": 3.202159627691219,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 4.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct but weak",
+    "ms_ref": 0.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.43923070000073494
+   },
+   "raw": "{\"rationale\":\"Tests the ACC response when a lead vehicle in the ego lane brakes sharply at 4 m/s^2, requiring collision avoidance and a sustained minimum 2 m bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead_vehicle\",\"lane\":1,\"rel_x\":35,\"speed\":25,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 1,
+   "latency_s": 13.187846000000718,
+   "tokens": 2456,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring continuous collision avoidance and at least a 2 m bumper-to-bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.695647839908247,
+     "min_ttc": 2.3428252199353943,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6910615000015241
+   },
+   "raw": "{\"rationale\":\"Tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring continuous collision avoidance and at least a 2 m bumper-to-bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":60,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 2,
+   "latency_s": 12.549130999999761,
+   "tokens": 2485,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the ACC and emergency braking response to a lead vehicle decelerating at the requirement limit of 6 m/s^2 while requiring no collision and a minimum 2 m bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.888278546032382,
+     "min_ttc": 2.7011610782671074,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.778525500001706
+   },
+   "raw": "{\"rationale\":\"Tests the ACC and emergency braking response to a lead vehicle decelerating at the requirement limit of 6 m/s^2 while requiring no collision and a minimum 2 m bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":35,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 3,
+   "latency_s": 13.64748039999995,
+   "tokens": 2353,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the worst-case specified lead-vehicle braking of 6 m/s^2 directly ahead at highway speed while requiring collision avoidance and a minimum 2 m bumper gap.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 40,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 4.626951309645904,
+     "min_ttc": 2.6702675570050505,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.8128289999995104
+   },
+   "raw": "{\"rationale\":\"Tests the worst-case specified lead-vehicle braking of 6 m/s^2 directly ahead at highway speed while requiring collision avoidance and a minimum 2 m bumper gap.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":40,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 4,
+   "latency_s": 10.126916600000186,
+   "tokens": 2498,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring collision avoidance and a minimum 2 m bumper gap.",
+    "duration": 10,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 40,
+      "speed": 30,
+      "events": [
+       {
+        "t": 2,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 9.40833537677102,
+     "min_ttc": 2.761150433124392,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.5904082000006383
+   },
+   "raw": "{\"rationale\":\"Tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring collision avoidance and a minimum 2 m bumper gap.\",\"duration\":10,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":40,\"speed\":30,\"events\":[{\"t\":2,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 5,
+   "latency_s": 9.22681460000058,
+   "tokens": 2556,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the ACC/emergency-braking response to a lead vehicle applying the maximum specified 6 m/s^2 deceleration while initially traveling at the ego speed.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 40,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 4.626951309645904,
+     "min_ttc": 2.6702675570050505,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.6923569000000498
+   },
+   "raw": "{\"rationale\":\"Tests the ACC/emergency-braking response to a lead vehicle applying the maximum specified 6 m/s^2 deceleration while initially traveling at the ego speed.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":40,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 6,
+   "latency_s": 10.470375799999601,
+   "tokens": 2449,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring no collision and a minimum 2 m bumper-to-bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead_vehicle",
+      "lane": 1,
+      "rel_x": 50,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.88469979230689,
+     "min_ttc": 2.596909274582522,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.2897757999999158
+   },
+   "raw": "{\"rationale\":\"This scenario tests the ACC response to a lead vehicle braking at the requirement limit of 6 m/s^2 while requiring no collision and a minimum 2 m bumper-to-bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead_vehicle\",\"lane\":1,\"rel_x\":50,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 7,
+   "latency_s": 12.692359399999987,
+   "tokens": 2289,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Challenges ACC with a lead vehicle braking at the requirement limit while requiring continuous collision avoidance and at least a 2 m bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead_braking_vehicle",
+      "lane": 1,
+      "rel_x": 25,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.83557025328912,
+     "min_ttc": 2.759459973347624,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0331140999987838
+   },
+   "raw": "{\"rationale\":\"Challenges ACC with a lead vehicle braking at the requirement limit while requiring continuous collision avoidance and at least a 2 m bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead_braking_vehicle\",\"lane\":1,\"rel_x\":25,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 8,
+   "latency_s": 13.065392999999858,
+   "tokens": 2528,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle in the ego lane brakes from 30 m/s to a stop at the maximum specified deceleration, creating a challenging emergency-braking scenario that must preserve collision avoidance and a 2 m minimum gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 25,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.83557025328912,
+     "min_ttc": 2.759459973347624,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 2.0080216000014843
+   },
+   "raw": "{\"rationale\":\"A lead vehicle in the ego lane brakes from 30 m/s to a stop at the maximum specified deceleration, creating a challenging emergency-braking scenario that must preserve collision avoidance and a 2 m minimum gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":25,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R2",
+   "model": "gpt-5.6-luna",
+   "idx": 9,
+   "latency_s": 11.80078070000036,
+   "tokens": 2477,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests the maximum specified lead-vehicle braking event from an initially steady 30 m/s following condition and requires both collision avoidance and a minimum 2 m bumper gap.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 45,
+      "speed": 30,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 6
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 6.897016045466671,
+     "min_ttc": 2.635289580179795,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "in-lane lead max deceleration 6.0 m/s^2 (needs 2.5..6.5)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 2.855005300002631
+   },
+   "raw": "{\"rationale\":\"Tests the maximum specified lead-vehicle braking event from an initially steady 30 m/s following condition and requires both collision avoidance and a minimum 2 m bumper gap.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":45,\"speed\":30,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":6}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":2}}],\"confidence\":0.97}"
+  }
+ ]
+}

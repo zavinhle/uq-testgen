@@ -1,0 +1,896 @@
+{
+ "run_id": "exp_R4_gpt-5.6-luna",
+ "rid": "R4",
+ "requirement": {
+  "title": "Set-speed limit",
+  "text": "On a free road (no vehicle ahead in the ego lane), the ego speed shall never exceed the driver set speed by more than 1 m/s."
+ },
+ "model": "gpt-5.6-luna",
+ "n": 10,
+ "wall_seconds": 39.84819890000017,
+ "batch_uq": {
+  "struct_entropy": 0.0,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 1,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.975
+ },
+ "samples": [
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 0,
+   "latency_s": 9.897161500000038,
+   "tokens": 2407,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road run with the ego accelerating toward a 20 m/s set speed verifies that its speed never exceeds the permitted 21 m/s threshold.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0026323554197987,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.27428300000065065
+   },
+   "raw": "{\"rationale\":\"A free-road run with the ego accelerating toward a 20 m/s set speed verifies that its speed never exceeds the permitted 21 m/s threshold.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 1,
+   "latency_s": 8.794746599999598,
+   "tokens": 2414,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no vehicle in the ego lane, the ego should accelerate toward the set speed without exceeding it by more than 1 m/s.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0026323554197987,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.3259721000003992
+   },
+   "raw": "{\"rationale\":\"With no vehicle in the ego lane, the ego should accelerate toward the set speed without exceeding it by more than 1 m/s.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 2,
+   "latency_s": 9.636030399999981,
+   "tokens": 2380,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road run with no NPCs checks that the ego speed remains within 1 m/s above the 25 m/s driver set speed throughout the simulation.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 25
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 26
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.8888888888888888,
+    "U_comb": 0.2962962962962963,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000266654368737,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.42983729999923526
+   },
+   "raw": "{\"rationale\":\"A free-road run with no NPCs checks that the ego speed remains within 1 m/s above the 25 m/s driver set speed throughout the simulation.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":25},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":26}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 3,
+   "latency_s": 9.688196600000083,
+   "tokens": 2489,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no vehicles ahead in the ego lane, this test checks that the ego speed never exceeds the 20 m/s driver set speed by more than 1 m/s during acceleration and steady state.",
+    "duration": 10,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 2.2013223895267373,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct but weak",
+    "ms_ref": 0.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.21743359999982204
+   },
+   "raw": "{\"rationale\":\"With no vehicles ahead in the ego lane, this test checks that the ego speed never exceeds the 20 m/s driver set speed by more than 1 m/s during acceleration and steady state.\",\"duration\":10,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 4,
+   "latency_s": 14.10636439999962,
+   "tokens": 2419,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A 20-second free-road run with the ego already at the driver set speed verifies that ACC never exceeds the allowed set speed margin of 1 m/s.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.5156901999989714
+   },
+   "raw": "{\"rationale\":\"A 20-second free-road run with the ego already at the driver set speed verifies that ACC never exceeds the allowed set speed margin of 1 m/s.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.93}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 5,
+   "latency_s": 15.047755900000084,
+   "tokens": 2361,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road run with no scripted vehicles directly verifies that ego speed never exceeds the 20 m/s set speed by more than 1 m/s.",
+    "duration": 10,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.24511509999865666
+   },
+   "raw": "{\"rationale\":\"A free-road run with no scripted vehicles directly verifies that ego speed never exceeds the 20 m/s set speed by more than 1 m/s.\",\"duration\":10,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 6,
+   "latency_s": 13.880855500000507,
+   "tokens": 2333,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road run with ego initially at the driver set speed directly checks that ACC never allows speed above set_speed + 1 m/s.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 1.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.4233758000000307
+   },
+   "raw": "{\"rationale\":\"A free-road run with ego initially at the driver set speed directly checks that ACC never allows speed above set_speed + 1 m/s.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 7,
+   "latency_s": 14.703098400000272,
+   "tokens": 2362,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no vehicle ahead in the ego lane, the oracle directly checks that ego speed never exceeds the 20 m/s driver set speed by more than 1 m/s.",
+    "duration": 10,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.17271830000026966
+   },
+   "raw": "{\"rationale\":\"With no vehicle ahead in the ego lane, the oracle directly checks that ego speed never exceeds the 20 m/s driver set speed by more than 1 m/s.\",\"duration\":10,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.99}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 8,
+   "latency_s": 13.333643200000552,
+   "tokens": 2379,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A free-road run with the ego set speed at 20 m/s directly verifies that ego speed never exceeds the allowed 21 m/s threshold.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.000005768056198,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.3856225999988965
+   },
+   "raw": "{\"rationale\":\"A free-road run with the ego set speed at 20 m/s directly verifies that ego speed never exceeds the allowed 21 m/s threshold.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-5.6-luna",
+   "idx": 9,
+   "latency_s": 12.879696999999396,
+   "tokens": 2404,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no vehicles present, the ego is on a free road, and the speed-limit oracle directly verifies that ego speed never exceeds the 20 m/s set speed by more than 1 m/s.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 0,
+     "set_speed": 20
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 21
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0026323554197987,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.25165580000066257
+   },
+   "raw": "{\"rationale\":\"With no vehicles present, the ego is on a free road, and the speed-limit oracle directly verifies that ego speed never exceeds the 20 m/s set speed by more than 1 m/s.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":0,\"set_speed\":20},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":21}}],\"confidence\":0.98}"
+  }
+ ]
+}

@@ -1,0 +1,900 @@
+{
+ "run_id": "exp_R4_gpt-6-astra",
+ "rid": "R4",
+ "requirement": {
+  "title": "Set-speed limit",
+  "text": "On a free road (no vehicle ahead in the ego lane), the ego speed shall never exceed the driver set speed by more than 1 m/s."
+ },
+ "model": "gpt-6-astra",
+ "n": 10,
+ "wall_seconds": 43.96120650000012,
+ "batch_uq": {
+  "struct_entropy": 0.0,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 1,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.99
+ },
+ "samples": [
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 0,
+   "latency_s": 11.026234399999339,
+   "tokens": 2688,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Starting below the driver set speed on an empty road exercises ACC acceleration and settling while checking that speed never exceeds the set speed by more than 1 m/s.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.771185599999626
+   },
+   "raw": "{\n  \"rationale\": \"Starting below the driver set speed on an empty road exercises ACC acceleration and settling while checking that speed never exceeds the set speed by more than 1 m/s.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 20, \"set_speed\": 30},\n  \"npcs\": [],\n  \"oracle\": [\n    {\"template\": \"speed_limit\", \"params\": {\"vmax\": 31}}\n  ],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 1,
+   "latency_s": 12.360349499999757,
+   "tokens": 2666,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no other vehicles present, accelerating from 20 m/s toward a driver set speed of 30 m/s tests whether ACC overshoot ever exceeds the permitted 1 m/s margin.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.7285322999996424
+   },
+   "raw": "{\"rationale\":\"With no other vehicles present, accelerating from 20 m/s toward a driver set speed of 30 m/s tests whether ACC overshoot ever exceeds the permitted 1 m/s margin.\",\"duration\":60,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.99}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 2,
+   "latency_s": 10.59683589999986,
+   "tokens": 2660,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Starting below the driver set speed on an empty highway tests acceleration and settling overshoot while requiring ego speed to remain within 1 m/s of the set speed throughout.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6168976000008115
+   },
+   "raw": "{\"rationale\":\"Starting below the driver set speed on an empty highway tests acceleration and settling overshoot while requiring ego speed to remain within 1 m/s of the set speed throughout.\",\"duration\":60,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.99}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 3,
+   "latency_s": 12.455734299999676,
+   "tokens": 2684,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty highway keeps the road free while the ego accelerates from below the driver set speed, testing transient overshoot and sustained compliance with the 1 m/s allowance.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6208880999975008
+   },
+   "raw": "{\n  \"rationale\": \"An empty highway keeps the road free while the ego accelerates from below the driver set speed, testing transient overshoot and sustained compliance with the 1 m/s allowance.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 20, \"set_speed\": 30},\n  \"npcs\": [],\n  \"oracle\": [{\"template\": \"speed_limit\", \"params\": {\"vmax\": 31}}],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 4,
+   "latency_s": 10.636153800000102,
+   "tokens": 2706,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty highway with ego initially below the driver set speed exercises ACC acceleration and settling while checking that speed never exceeds the set speed by more than 1 m/s.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6198825999999826
+   },
+   "raw": "{\n  \"rationale\": \"An empty highway with ego initially below the driver set speed exercises ACC acceleration and settling while checking that speed never exceeds the set speed by more than 1 m/s.\",\n  \"duration\": 60,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 20,\n    \"set_speed\": 30\n  },\n  \"npcs\": [],\n  \"oracle\": [\n    {\n      \"template\": \"speed_limit\",\n      \"params\": {\n        \"vmax\": 31\n      }\n    }\n  ],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 5,
+   "latency_s": 13.672613800000363,
+   "tokens": 2707,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty highway lets the ego accelerate from 20 m/s toward its 30 m/s set speed, testing that transient overshoot and sustained speed never exceed 31 m/s.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.7192945999977383
+   },
+   "raw": "{\n  \"rationale\": \"An empty highway lets the ego accelerate from 20 m/s toward its 30 m/s set speed, testing that transient overshoot and sustained speed never exceed 31 m/s.\",\n  \"duration\": 60,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 20,\n    \"set_speed\": 30\n  },\n  \"npcs\": [],\n  \"oracle\": [\n    {\n      \"template\": \"speed_limit\",\n      \"params\": {\n        \"vmax\": 31\n      }\n    }\n  ],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 6,
+   "latency_s": 15.48638099999971,
+   "tokens": 2684,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty highway with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.743073300001015
+   },
+   "raw": "{\n  \"rationale\": \"An empty highway with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 20, \"set_speed\": 30},\n  \"npcs\": [],\n  \"oracle\": [{\"template\": \"speed_limit\", \"params\": {\"vmax\": 31}}],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 7,
+   "latency_s": 15.640076200000294,
+   "tokens": 2688,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "With no other vehicles, accelerating from 20 m/s toward a 30 m/s set speed tests whether ACC overshoot ever exceeds the permitted 1 m/s margin.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8822572000008222
+   },
+   "raw": "{\n  \"rationale\": \"With no other vehicles, accelerating from 20 m/s toward a 30 m/s set speed tests whether ACC overshoot ever exceeds the permitted 1 m/s margin.\",\n  \"duration\": 60,\n  \"ego\": {\"lane\": 1, \"speed\": 20, \"set_speed\": 30},\n  \"npcs\": [],\n  \"oracle\": [{\"template\": \"speed_limit\", \"params\": {\"vmax\": 31}}],\n  \"confidence\": 0.99\n}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 8,
+   "latency_s": 8.966818200000489,
+   "tokens": 2655,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty road with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0180420999986382
+   },
+   "raw": "{\"rationale\":\"An empty road with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.\",\"duration\":60,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.99}"
+  },
+  {
+   "rid": "R4",
+   "model": "gpt-6-astra",
+   "idx": 9,
+   "latency_s": 11.869612799999231,
+   "tokens": 2653,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "An empty highway with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.",
+    "duration": 60,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [],
+    "oracle": [
+     {
+      "template": "speed_limit",
+      "params": {
+       "vmax": 31
+      }
+     }
+    ],
+    "confidence": 0.99
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.010000000000000009,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0000000000000426,
+     "min_gap": 999.0,
+     "min_ttc": 99.0,
+     "max_decel": 0.0,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "free road 100% of the time",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6221201000007568
+   },
+   "raw": "{\"rationale\":\"An empty highway with ego initially below the driver set speed tests whether ACC acceleration and settling ever exceed the permitted 1 m/s overshoot.\",\"duration\":60,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":30},\"npcs\":[],\"oracle\":[{\"template\":\"speed_limit\",\"params\":{\"vmax\":31}}],\"confidence\":0.99}"
+  }
+ ]
+}

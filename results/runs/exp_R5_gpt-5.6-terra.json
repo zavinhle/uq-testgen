@@ -1,0 +1,1176 @@
+{
+ "run_id": "exp_R5_gpt-5.6-terra",
+ "rid": "R5",
+ "requirement": {
+  "title": "Stop-and-go",
+  "text": "If the lead vehicle in the ego lane comes to a full stop, the ego vehicle shall come to a stop without collision, keeping a gap of at least 3 m to the lead vehicle."
+ },
+ "model": "gpt-5.6-terra",
+ "n": 10,
+ "wall_seconds": 51.47477940000044,
+ "batch_uq": {
+  "struct_entropy": 0.14118174150460758,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 2,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.951
+ },
+ "samples": [
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 0,
+   "latency_s": 11.869238399999631,
+   "tokens": 3383,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stopped lead vehicle is created in the ego lane from highway speed, requiring ACC emergency braking to stop safely with the mandated residual gap.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 45,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3477467849788282,
+     "min_gap": 4.5035586763692095,
+     "min_ttc": 3.20267076030236,
+     "max_decel": 4.150000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.5336787999976877
+   },
+   "raw": "{\"rationale\":\"A stopped lead vehicle is created in the ego lane from highway speed, requiring ACC emergency braking to stop safely with the mandated residual gap.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":45,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.93}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 1,
+   "latency_s": 29.7632708000001,
+   "tokens": 1540,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle directly ahead brakes to a full stop, requiring the ego ACC to stop safely while preserving the required gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 50,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4926058179103884,
+     "min_gap": 4.024457167489203,
+     "min_ttc": 3.2045784640949058,
+     "max_decel": 3.768071523744778,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.8779026999991402
+   },
+   "raw": "{\"rationale\":\"A lead vehicle directly ahead brakes to a full stop, requiring the ego ACC to stop safely while preserving the required gap.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":50,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 2,
+   "latency_s": 18.6282841000002,
+   "tokens": 1539,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stopped lead vehicle directly ahead forces the ACC to brake to a complete stop while preserving the required clearance.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 15,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.39066740228170715,
+     "min_gap": 4.361622753991554,
+     "min_ttc": 3.216823574715608,
+     "max_decel": 3.756845040120984,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.6780594000010751
+   },
+   "raw": "{\"rationale\":\"A stopped lead vehicle directly ahead forces the ACC to brake to a complete stop while preserving the required clearance.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":60,\"speed\":15,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.95}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 3,
+   "latency_s": 15.06683299999986,
+   "tokens": 1532,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stopped lead vehicle is created in the ego lane under highway-speed closing conditions to verify collision-free stopping with the required residual gap.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 80,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.9999999999999998,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.4999999999999999,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3121536371712519,
+     "min_gap": 4.6212873974268405,
+     "min_ttc": 3.215972713218185,
+     "max_decel": 3.983750529591017,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7738423000009789
+   },
+   "raw": "{\"rationale\":\"A stopped lead vehicle is created in the ego lane under highway-speed closing conditions to verify collision-free stopping with the required residual gap.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":80,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.95}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 4,
+   "latency_s": 9.33914519999962,
+   "tokens": 1672,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Tests ACC emergency braking when a same-lane lead vehicle decelerates from highway speed to a full stop.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 55,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4923912173925474,
+     "min_gap": 4.025166985125793,
+     "min_ttc": 3.206418258717012,
+     "max_decel": 3.7996994264314132,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.3592465999990964
+   },
+   "raw": "{\"rationale\":\"Tests ACC emergency braking when a same-lane lead vehicle decelerates from highway speed to a full stop.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":25},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":55,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 5,
+   "latency_s": 11.826323799999955,
+   "tokens": 1542,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stopped lead vehicle is created directly ahead in the ego lane after steady following, requiring ACC to brake to a safe stationary gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 70,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4914370579383454,
+     "min_gap": 4.028322985006469,
+     "min_ttc": 3.2139432243608193,
+     "max_decel": 3.9400257870517796,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.0787321000007069
+   },
+   "raw": "{\"rationale\":\"A stopped lead vehicle is created directly ahead in the ego lane after steady following, requiring ACC to brake to a safe stationary gap.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":25},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":70,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 6,
+   "latency_s": 14.680539699999827,
+   "tokens": 1543,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stopped lead vehicle directly ahead forces the ACC-equipped ego vehicle to brake to a safe standstill with the required residual gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 60,
+      "speed": 15,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.49484400200663287,
+     "min_gap": 4.017054098174185,
+     "min_ttc": 3.216823574715608,
+     "max_decel": 3.756845040120984,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.8777798999981314
+   },
+   "raw": "{\"rationale\":\"A stopped lead vehicle directly ahead forces the ACC-equipped ego vehicle to brake to a safe standstill with the required residual gap.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":60,\"speed\":15,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.95}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 7,
+   "latency_s": 15.308386400000018,
+   "tokens": 1544,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A same-lane lead vehicle brakes to a complete stop from highway speed, requiring the ego ACC to stop safely with the mandated residual gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 70,
+      "speed": 25,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.48726626019404995,
+     "min_gap": 4.042118411322804,
+     "min_ttc": 3.2147910304068628,
+     "max_decel": 3.9659809983827765,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.8647775999997975
+   },
+   "raw": "{\"rationale\":\"A same-lane lead vehicle brakes to a complete stop from highway speed, requiring the ego ACC to stop safely with the mandated residual gap.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":70,\"speed\":25,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 8,
+   "latency_s": 14.382971699999871,
+   "tokens": 1541,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego follows a stopped lead vehicle in the same lane and must brake to a collision-free stop while retaining the required gap.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 55,
+      "speed": 20,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3386458872753224,
+     "min_gap": 4.533661016462958,
+     "min_ttc": 3.206418258717012,
+     "max_decel": 3.7996994264314132,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.5108049999989817
+   },
+   "raw": "{\"rationale\":\"Ego follows a stopped lead vehicle in the same lane and must brake to a collision-free stop while retaining the required gap.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":55,\"speed\":20,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R5",
+   "model": "gpt-5.6-terra",
+   "idx": 9,
+   "latency_s": 13.103880499999832,
+   "tokens": 1545,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle in the ego lane brakes to a full stop, requiring ACC to stop the ego vehicle safely while maintaining the required gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 70,
+      "speed": 22,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 3
+      }
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 3
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.045757490560675115,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.022878745280337558,
+    "features": {
+     "verdict": true,
+     "robustness": 0.49023643202894485,
+     "min_gap": 4.032294202852711,
+     "min_ttc": 3.213672548917249,
+     "max_decel": 3.9166407806786463,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "lead stopped during final 3 s",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.9719715000001088
+   },
+   "raw": "{\"rationale\":\"A lead vehicle in the ego lane brakes to a full stop, requiring ACC to stop the ego vehicle safely while maintaining the required gap.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":70,\"speed\":22,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":3}},{\"template\":\"stop_gap\",\"params\":{\"d\":3}}],\"confidence\":0.93}"
+  }
+ ]
+}

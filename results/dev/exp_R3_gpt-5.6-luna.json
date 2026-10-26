@@ -1,0 +1,1143 @@
+{
+ "run_id": "exp_R3_gpt-5.6-luna",
+ "rid": "R3",
+ "requirement": {
+  "title": "Cut-in response",
+  "text": "If a vehicle from an adjacent lane cuts into the ego lane at least 15 m ahead of the ego vehicle, the ego vehicle shall not collide, and from 6 s after the cut-in starts the time headway shall be at least 1.0 s."
+ },
+ "model": "gpt-5.6-luna",
+ "n": 10,
+ "wall_seconds": 58.89370280000003,
+ "batch_uq": {
+  "struct_entropy": 0.30102999566398114,
+  "behav_entropy": 0.8193820026016112,
+  "n_struct_clusters": 2,
+  "n_behav_clusters": 7,
+  "mean_verbal_conf": 0.9419999999999998
+ },
+ "samples": [
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 0,
+   "latency_s": 15.159823799999685,
+   "tokens": 2819,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario creates a slower adjacent-lane vehicle that cuts into the ego lane with more than 15 m initial clearance, requiring ACC emergency braking to avoid collision and restore at least 1 s headway after 6 s.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_vehicle",
+      "lane": 0,
+      "rel_x": 70,
+      "speed": 20,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       },
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 6
+      }
+     }
+    ],
+    "confidence": 0.86
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.14,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.9999999999999998,
+    "U_oracle": 0.0,
+    "U_comb": 0.4336766652213269,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4464987936259419,
+     "min_gap": 5.539043263282451,
+     "min_ttc": 3.165907804244858,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.7733333333333333
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=3.0s with approx. gap 40 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 0.8888888888888888,
+    "correct": false,
+    "label": "wrong oracle",
+    "ms_ref": 0.5,
+    "ms_gen": 0.625,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M3_narrow_corridor",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.902009000000362
+   },
+   "raw": "{\"rationale\":\"This scenario creates a slower adjacent-lane vehicle that cuts into the ego lane with more than 15 m initial clearance, requiring ACC emergency braking to avoid collision and restore at least 1 s headway after 6 s.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_vehicle\",\"lane\":0,\"rel_x\":70,\"speed\":20,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1},{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":6}}],\"confidence\":0.86}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 1,
+   "latency_s": 20.805237900000066,
+   "tokens": 3993,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A vehicle cuts into the ego lane 30 m ahead, then brakes to a stop, exercising collision avoidance and the required post-cut-in time headway.",
+    "duration": 20,
+    "ego": {
+     "lane": 0,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [
+     {
+      "id": "cutin_braking_vehicle",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 20,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 0
+       },
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.9999999999999998,
+    "U_oracle": 0.0,
+    "U_comb": 0.4336766652213269,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 4.435778010813067,
+     "min_ttc": 3.1928459553817485,
+     "max_decel": 3.5969096670417766,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.83
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=3.0s with approx. gap 30 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct but weak",
+    "ms_ref": 0.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.9122822999988784
+   },
+   "raw": "{\"rationale\":\"A vehicle cuts into the ego lane 30 m ahead, then brakes to a stop, exercising collision avoidance and the required post-cut-in time headway.\",\"duration\":20,\"ego\":{\"lane\":0,\"speed\":20,\"set_speed\":20},\"npcs\":[{\"id\":\"cutin_braking_vehicle\",\"lane\":1,\"rel_x\":30,\"speed\":20,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":0},{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.94}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 2,
+   "latency_s": 12.37328400000024,
+   "tokens": 2317,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This test challenges ACC with a close adjacent-lane cut-in 20 m ahead and verifies collision avoidance plus recovery to at least 1.0 s headway from 6 s onward.",
+    "duration": 12,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_vehicle",
+      "lane": 0,
+      "rel_x": 20,
+      "speed": 30,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 6
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": true,
+     "robustness": 0.28765662607837017,
+     "min_gap": 19.85940900328609,
+     "min_ttc": 99.0,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.7111111111111111
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=3.0s with approx. gap 20 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 0.8888888888888888,
+    "correct": false,
+    "label": "wrong oracle",
+    "ms_ref": 0.125,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3025830000005953
+   },
+   "raw": "{\"rationale\":\"This test challenges ACC with a close adjacent-lane cut-in 20 m ahead and verifies collision avoidance plus recovery to at least 1.0 s headway from 6 s onward.\",\"duration\":12,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_vehicle\",\"lane\":0,\"rel_x\":20,\"speed\":30,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":6}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 3,
+   "latency_s": 16.89767910000046,
+   "tokens": 2599,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A faster ego vehicle faces a close adjacent-lane cut-in from 20 m ahead, exercising emergency braking and verifying collision avoidance plus at least 1.0 s headway after the maneuver.",
+    "duration": 12,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_vehicle",
+      "lane": 0,
+      "rel_x": 20,
+      "speed": 28,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 6
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": true,
+     "robustness": 0.07774713965901525,
+     "min_gap": 12.648424169894326,
+     "min_ttc": 9.698373524514277,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.7166666666666667
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": false,
+    "activation_note": "cut-in at t=3.0s with approx. gap 14 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 0.6666666666666666,
+    "correct": false,
+    "label": "irrelevant scenario",
+    "ms_ref": 0.125,
+    "ms_gen": 0.5,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M3_narrow_corridor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.2064522999990004
+   },
+   "raw": "{\"rationale\":\"A faster ego vehicle faces a close adjacent-lane cut-in from 20 m ahead, exercising emergency braking and verifying collision avoidance plus at least 1.0 s headway after the maneuver.\",\"duration\":12,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_vehicle\",\"lane\":0,\"rel_x\":20,\"speed\":28,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":6}}],\"confidence\":0.95}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 4,
+   "latency_s": 11.60771670000031,
+   "tokens": 2744,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A vehicle cuts into the ego lane from 25 m ahead while traveling slower, creating a demanding emergency-braking scenario that checks both collision avoidance and post-cut-in time headway.",
+    "duration": 15,
+    "ego": {
+     "lane": 0,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_1",
+      "lane": 1,
+      "rel_x": 25,
+      "speed": 25,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 0
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.9999999999999998,
+    "U_oracle": 0.3333333333333333,
+    "U_comb": 0.544787776332438,
+    "features": {
+     "verdict": true,
+     "robustness": 0.46473960785752366,
+     "min_gap": 6.056971257702315,
+     "min_ttc": 1.9805059572521397,
+     "max_decel": 9.000000000000021,
+     "aeb": true,
+     "crashed": false,
+     "lead_present": 0.7733333333333333
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": false,
+    "activation_note": "cut-in at t=3.0s with approx. gap 10 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": false,
+    "label": "irrelevant scenario",
+    "ms_ref": 0.375,
+    "ms_gen": 0.375,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 2.088334500000201
+   },
+   "raw": "{\"rationale\":\"A vehicle cuts into the ego lane from 25 m ahead while traveling slower, creating a demanding emergency-braking scenario that checks both collision avoidance and post-cut-in time headway.\",\"duration\":15,\"ego\":{\"lane\":0,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_1\",\"lane\":1,\"rel_x\":25,\"speed\":25,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":0}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.93}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 5,
+   "latency_s": 13.290827800000443,
+   "tokens": 2736,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A vehicle cuts into the ego lane from 30 m ahead while traveling slower, creating a challenging but valid cut-in that tests collision avoidance and recovery to at least 1.0 s headway six seconds after the maneuver begins.",
+    "duration": 15,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "cut_in_vehicle",
+      "lane": 0,
+      "rel_x": 30,
+      "speed": 20,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 1
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 8
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.9999999999999998,
+    "U_oracle": 0.0,
+    "U_comb": 0.4336766652213269,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6168662892646906,
+     "min_gap": 15.000328555253049,
+     "min_ttc": 3.949728517070918,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.8355555555555556
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=2.0s with approx. gap 20 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M1_short_time_gap"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.5239852999993673
+   },
+   "raw": "{\"rationale\":\"A vehicle cuts into the ego lane from 30 m ahead while traveling slower, creating a challenging but valid cut-in that tests collision avoidance and recovery to at least 1.0 s headway six seconds after the maneuver begins.\",\"duration\":15,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":25},\"npcs\":[{\"id\":\"cut_in_vehicle\",\"lane\":0,\"rel_x\":30,\"speed\":20,\"events\":[{\"t\":2,\"type\":\"lane_change\",\"target_lane\":1}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":8}}],\"confidence\":0.95}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 6,
+   "latency_s": 16.728373400000237,
+   "tokens": 2784,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower adjacent-lane vehicle cuts into the ego lane 30 m ahead and then stops, requiring emergency braking while verifying collision avoidance and at least 1.0 s headway from 6 s after cut-in onset.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_stopped_vehicle",
+      "lane": 0,
+      "rel_x": 60,
+      "speed": 20,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       },
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.3333333333333333,
+    "U_comb": 0.4444444444444444,
+    "features": {
+     "verdict": true,
+     "robustness": 0.9041685160591557,
+     "min_gap": 4.154195931941217,
+     "min_ttc": 2.690945382925843,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.83
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=3.0s with approx. gap 30 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M1_short_time_gap",
+     "M6_weak_actuator"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M6_weak_actuator"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 2.634532600001876
+   },
+   "raw": "{\"rationale\":\"A slower adjacent-lane vehicle cuts into the ego lane 30 m ahead and then stops, requiring emergency braking while verifying collision avoidance and at least 1.0 s headway from 6 s after cut-in onset.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_stopped_vehicle\",\"lane\":0,\"rel_x\":60,\"speed\":20,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1},{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 7,
+   "latency_s": 13.147429100000409,
+   "tokens": 2478,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario tests an adjacent-lane vehicle cutting in 15 m ahead and then braking sharply, requiring collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [
+     {
+      "id": "cutin_braking_vehicle",
+      "lane": 0,
+      "rel_x": 15,
+      "speed": 20,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       },
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 4.307168511662724,
+     "min_ttc": 3.167650292409944,
+     "max_decel": 4.999999999999982,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 0.83
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "cut-in at t=3.0s with approx. gap 15 m (needs >=15 m, >=8 s after)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M1_short_time_gap"
+    ],
+    "killed_ref": [
+     "M1_short_time_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.3762702999993053
+   },
+   "raw": "{\"rationale\":\"This scenario tests an adjacent-lane vehicle cutting in 15 m ahead and then braking sharply, requiring collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":20,\"set_speed\":20},\"npcs\":[{\"id\":\"cutin_braking_vehicle\",\"lane\":0,\"rel_x\":15,\"speed\":20,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1},{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 8,
+   "latency_s": 10.017968999999539,
+   "tokens": 2563,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A slower adjacent-lane vehicle cuts in 20 m ahead, requiring ACC braking while verifying collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.",
+    "duration": 15,
+    "ego": {
+     "lane": 0,
+     "speed": 20,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_vehicle",
+      "lane": 1,
+      "rel_x": 20,
+      "speed": 18,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 0
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": false,
+     "robustness": -1.0,
+     "min_gap": -2.351401623741822,
+     "min_ttc": -0.6516224017257772,
+     "max_decel": 24.266666666666623,
+     "aeb": true,
+     "crashed": true,
+     "lead_present": 0.04888888888888889
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": false,
+    "activation_note": "cut-in at t=3.0s with approx. gap 14 m (needs >=15 m, >=8 s after)",
+    "in_odd": false,
+    "false_alarm": true,
+    "oracle_agreement": 1.0,
+    "correct": false,
+    "label": "irrelevant scenario",
+    "ms_ref": 1.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M2_late_aeb",
+     "M3_narrow_corridor",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 4.733186899999055
+   },
+   "raw": "{\"rationale\":\"A slower adjacent-lane vehicle cuts in 20 m ahead, requiring ACC braking while verifying collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.\",\"duration\":15,\"ego\":{\"lane\":0,\"speed\":20,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_vehicle\",\"lane\":1,\"rel_x\":20,\"speed\":18,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":0}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.94}"
+  },
+  {
+   "rid": "R3",
+   "model": "gpt-5.6-luna",
+   "idx": 9,
+   "latency_s": 10.922693299999992,
+   "tokens": 2866,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario cuts in from an adjacent lane 25 m ahead, then brakes sharply after the maneuver to verify collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "cutin_braker",
+      "lane": 0,
+      "rel_x": 25,
+      "speed": 20,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 1
+       },
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "time_headway",
+      "params": {
+       "h": 1.0,
+       "t_from": 9
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.30102999566398114,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.3333333333333333,
+    "features": {
+     "verdict": false,
+     "robustness": -1.0,
+     "min_gap": -2.377352185030418,
+     "min_ttc": -0.31529526920195344,
+     "max_decel": 28.078659289233485,
+     "aeb": true,
+     "crashed": true,
+     "lead_present": 0.006666666666666667
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": false,
+    "activation_note": "cut-in at t=3.0s with approx. gap 10 m (needs >=15 m, >=8 s after)",
+    "in_odd": false,
+    "false_alarm": true,
+    "oracle_agreement": 1.0,
+    "correct": false,
+    "label": "irrelevant scenario",
+    "ms_ref": 1.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M2_late_aeb",
+     "M3_narrow_corridor",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7623913999987053
+   },
+   "raw": "{\"rationale\":\"This scenario cuts in from an adjacent lane 25 m ahead, then brakes sharply after the maneuver to verify collision avoidance and at least 1.0 s headway from 6 s after cut-in initiation.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":30},\"npcs\":[{\"id\":\"cutin_braker\",\"lane\":0,\"rel_x\":25,\"speed\":20,\"events\":[{\"t\":3,\"type\":\"lane_change\",\"target_lane\":1},{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"time_headway\",\"params\":{\"h\":1.0,\"t_from\":9}}],\"confidence\":0.96}"
+  }
+ ]
+}

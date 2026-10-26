@@ -1,0 +1,1070 @@
+{
+ "run_id": "exp_R7_gpt-5.6-luna",
+ "rid": "R7",
+ "requirement": {
+  "title": "Comfortable approach",
+  "text": "When the ego vehicle approaches a slower vehicle in its lane starting from a gap of more than 100 m with a speed difference of at most 10 m/s, it shall adapt its speed comfortably: the ego deceleration shall never exceed 3 m/s^2."
+ },
+ "model": "gpt-5.6-luna",
+ "n": 10,
+ "wall_seconds": 42.830653600000005,
+ "batch_uq": {
+  "struct_entropy": 0.4729032506370176,
+  "behav_entropy": 0.21732201127364886,
+  "n_struct_clusters": 4,
+  "n_behav_clusters": 2,
+  "mean_verbal_conf": 0.968
+ },
+ "samples": [
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 0,
+   "latency_s": 10.62798759999987,
+   "tokens": 2483,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, requiring ACC to comfortably adapt to the slower in-lane vehicle without exceeding the specified deceleration.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 35
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 0.6889953524461063,
+     "min_gap": 39.49346481731732,
+     "min_ttc": 7.149929560755397,
+     "max_decel": 2.3110046475538937,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6211666999988665
+   },
+   "raw": "{\"rationale\":\"This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, requiring ACC to comfortably adapt to the slower in-lane vehicle without exceeding the specified deceleration.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":35},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"max_decel\",\"params\":{\"a\":3}},{\"template\":\"no_collision\",\"params\":{}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 1,
+   "latency_s": 10.918929700000263,
+   "tokens": 2485,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario starts with a 120 m gap and a 10 m/s speed difference, requiring ACC to approach and comfortably regulate behind the slower lead vehicle without exceeding the specified deceleration.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.36226466053256,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.5441780000001017
+   },
+   "raw": "{\"rationale\":\"This scenario starts with a 120 m gap and a 10 m/s speed difference, requiring ACC to approach and comfortably regulate behind the slower lead vehicle without exceeding the specified deceleration.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 2,
+   "latency_s": 11.533563699999831,
+   "tokens": 2469,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, allowing verification that ACC adapts comfortably without exceeding the 3 m/s^2 deceleration limit.",
+    "duration": 35,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 39.20498834658258,
+     "min_ttc": 8.854521567714473,
+     "max_decel": 1.5332379403671936,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.895536699998047
+   },
+   "raw": "{\"rationale\":\"This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, allowing verification that ACC adapts comfortably without exceeding the 3 m/s^2 deceleration limit.\",\"duration\":35,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"max_decel\",\"params\":{\"a\":3}},{\"template\":\"no_collision\",\"params\":{}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 3,
+   "latency_s": 10.900371800000357,
+   "tokens": 2546,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "The ego approaches a slower lead vehicle from a 120 m gap with a 10 m/s speed difference, requiring ACC adaptation while verifying deceleration remains comfortable.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slow_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     },
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 0
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.6989700043360187,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.39794000867203755,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8786326000008557
+   },
+   "raw": "{\"rationale\":\"The ego approaches a slower lead vehicle from a 120 m gap with a 10 m/s speed difference, requiring ACC adaptation while verifying deceleration remains comfortable.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slow_lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"max_decel\",\"params\":{\"a\":3}},{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":0}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 4,
+   "latency_s": 14.365122000000156,
+   "tokens": 2564,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Starting 120 m behind a slower lead vehicle with a 5 m/s speed difference, the lead vehicle brakes at 4 m/s^2 to provoke comfortable ACC adaptation without lane changes.",
+    "duration": 25,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 25,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 5
+      }
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.9999999999999998,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.8494850021680093,
+    "features": {
+     "verdict": false,
+     "robustness": -2.000000000000009,
+     "min_gap": 4.317053305454294,
+     "min_ttc": 3.0427857005999437,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "reject",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 120 m (needs 100..150 within radar), speed difference 5.0 m/s (needs <=10)",
+    "in_odd": false,
+    "false_alarm": true,
+    "oracle_agreement": 1.0,
+    "correct": false,
+    "label": "outside ODD",
+    "ms_ref": 1.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M2_late_aeb",
+     "M3_narrow_corridor",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7013491000016074
+   },
+   "raw": "{\"rationale\":\"Starting 120 m behind a slower lead vehicle with a 5 m/s speed difference, the lead vehicle brakes at 4 m/s^2 to provoke comfortable ACC adaptation without lane changes.\",\"duration\":25,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":25,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":5}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 5,
+   "latency_s": 14.109375400000317,
+   "tokens": 2536,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "The ego starts 110 m behind a slower same-lane vehicle with an 8 m/s speed difference, which then brakes to a stop, requiring ACC speed adaptation without exceeding 3 m/s^2 deceleration.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slow_lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 22,
+      "events": [
+       {
+        "t": 5,
+        "type": "set_speed",
+        "target_speed": 0,
+        "rate": 4
+       }
+      ]
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.9999999999999998,
+    "U_behav": 0.6989700043360187,
+    "U_oracle": 0.0,
+    "U_comb": 0.8494850021680093,
+    "features": {
+     "verdict": false,
+     "robustness": -1.5786319592369829,
+     "min_gap": 4.043624463502169,
+     "min_ttc": 3.2321045073229016,
+     "max_decel": 4.578631959236983,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "reject",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": false,
+    "false_alarm": true,
+    "oracle_agreement": 1.0,
+    "correct": false,
+    "label": "outside ODD",
+    "ms_ref": 1.0,
+    "ms_gen": 0.0,
+    "killed_gen": [],
+    "killed_ref": [
+     "M1_short_time_gap",
+     "M2_late_aeb",
+     "M3_narrow_corridor",
+     "M4_short_sensor",
+     "M5_set_speed_overshoot",
+     "M6_weak_actuator",
+     "M7_no_rel_speed",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": false,
+     "M1_short_time_gap": false,
+     "M2_late_aeb": false,
+     "M3_narrow_corridor": false,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": false,
+     "M6_weak_actuator": false,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.8557440999984465
+   },
+   "raw": "{\"rationale\":\"The ego starts 110 m behind a slower same-lane vehicle with an 8 m/s speed difference, which then brakes to a stop, requiring ACC speed adaptation without exceeding 3 m/s^2 deceleration.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slow_lead\",\"lane\":1,\"rel_x\":110,\"speed\":22,\"events\":[{\"t\":5,\"type\":\"set_speed\",\"target_speed\":0,\"rate\":4}]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 6,
+   "latency_s": 14.776507099999435,
+   "tokens": 2640,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego starts 120 m behind a vehicle traveling 10 m/s slower, allowing ACC to demonstrate comfortable speed adaptation without exceeding the required deceleration.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "min_gap",
+      "params": {
+       "d": 5
+      }
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.6989700043360187,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.39794000867203755,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "review",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0267057000000932
+   },
+   "raw": "{\"rationale\":\"Ego starts 120 m behind a vehicle traveling 10 m/s slower, allowing ACC to demonstrate comfortable speed adaptation without exceeding the required deceleration.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"min_gap\",\"params\":{\"d\":5}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 7,
+   "latency_s": 14.01994780000041,
+   "tokens": 2446,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario starts with a 120 m gap and a 5 m/s closing-speed difference, requiring ACC to approach and smoothly match the slower lead vehicle without exceeding the specified deceleration.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 25,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.98
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.020000000000000018,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 44.0681617105397,
+     "min_ttc": 12.818717359566156,
+     "max_decel": 0.9580702345967929,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 120 m (needs 100..150 within radar), speed difference 5.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0571733999995558
+   },
+   "raw": "{\"rationale\":\"This scenario starts with a 120 m gap and a 5 m/s closing-speed difference, requiring ACC to approach and smoothly match the slower lead vehicle without exceeding the specified deceleration.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":25,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.98}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 8,
+   "latency_s": 9.262400600000547,
+   "tokens": 2473,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, requiring ACC to comfortably adapt before reaching the slower lead vehicle.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slower_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 39.22297038947397,
+     "min_ttc": 8.854521567714473,
+     "max_decel": 1.5332379403671936,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9357331999981398
+   },
+   "raw": "{\"rationale\":\"This scenario starts with a 120 m gap and an 8 m/s closing-speed difference, requiring ACC to comfortably adapt before reaching the slower lead vehicle.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slower_lead\",\"lane\":1,\"rel_x\":120,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-luna",
+   "idx": 9,
+   "latency_s": 7.963118800000302,
+   "tokens": 2484,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego starts 120 m behind a slower lead vehicle with an 8 m/s speed difference, providing a direct approach scenario to verify comfortable ACC deceleration without collision.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "slow_lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.22184874961635637,
+    "U_behav": 0.09691001300805638,
+    "U_oracle": 0.0,
+    "U_comb": 0.15937938131220636,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 39.22297038947397,
+     "min_ttc": 8.854521567714473,
+     "max_decel": 1.5332379403671936,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9328706000005695
+   },
+   "raw": "{\"rationale\":\"Ego starts 120 m behind a slower lead vehicle with an 8 m/s speed difference, providing a direct approach scenario to verify comfortable ACC deceleration without collision.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"slow_lead\",\"lane\":1,\"rel_x\":120,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.94}"
+  }
+ ]
+}

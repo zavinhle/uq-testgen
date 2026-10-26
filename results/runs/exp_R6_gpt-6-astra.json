@@ -1,0 +1,1168 @@
+{
+ "run_id": "exp_R6_gpt-6-astra",
+ "rid": "R6",
+ "requirement": {
+  "title": "Cut-out reveals stopped vehicle",
+  "text": "If the lead vehicle changes out of the ego lane and thereby reveals a stopped vehicle ahead in the ego lane, the ego vehicle shall not collide and shall stop with a gap of at least 2 m."
+ },
+ "model": "gpt-6-astra",
+ "n": 10,
+ "wall_seconds": 83.28598220000003,
+ "batch_uq": {
+  "struct_entropy": 0.0,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 1,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.9409999999999998
+ },
+ "samples": [
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 0,
+   "latency_s": 27.439774299999954,
+   "tokens": 2961,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing whether ACC emergency braking prevents collision and stops the ego with at least a 2 m gap.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 45,
+      "speed": 25,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 210,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4877034247577204,
+     "min_gap": 4.040672436695445,
+     "min_ttc": 3.6373350407054574,
+     "max_decel": 4.791608213735881,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.1896399000015663
+   },
+   "raw": "{\n  \"rationale\": \"A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing whether ACC emergency braking prevents collision and stops the ego with at least a 2 m gap.\",\n  \"duration\": 30,\n  \"ego\": {\"lane\": 1, \"speed\": 25, \"set_speed\": 25},\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 45,\n      \"speed\": 25,\n      \"events\": [{\"t\": 3, \"type\": \"lane_change\", \"target_lane\": 2}]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 210,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\"template\": \"no_collision\", \"params\": {}},\n    {\"template\": \"stop_gap\", \"params\": {\"d\": 2}}\n  ],\n  \"confidence\": 0.95\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 1,
+   "latency_s": 18.640984599999683,
+   "tokens": 2905,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing that the ego avoids collision and stops at least 2 m behind it.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 25,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 170,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3233733575243935,
+     "min_gap": 4.584214395225246,
+     "min_ttc": 3.6583002683958545,
+     "max_decel": 4.90000000000002,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7551191000011386
+   },
+   "raw": "{\n  \"rationale\": \"A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing that the ego avoids collision and stops at least 2 m behind it.\",\n  \"duration\": 20,\n  \"ego\": {\"lane\": 1, \"speed\": 25, \"set_speed\": 25},\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 30,\n      \"speed\": 25,\n      \"events\": [{\"t\": 2, \"type\": \"lane_change\", \"target_lane\": 2}]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 170,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\"template\": \"no_collision\", \"params\": {}},\n    {\"template\": \"stop_gap\", \"params\": {\"d\": 2}}\n  ],\n  \"confidence\": 0.95\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 2,
+   "latency_s": 28.631041899999218,
+   "tokens": 2996,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A close lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing whether ACC brakes to a collision-free stop with at least 2 m clearance.",
+    "duration": 25,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 25,
+      "events": [
+       {
+        "t": 1,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 150,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.47148020384746275,
+     "min_gap": 4.094332737444972,
+     "min_ttc": 3.6531105796733616,
+     "max_decel": 4.509774762609844,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 1.0137251999985892
+   },
+   "raw": "{\n  \"rationale\": \"A close lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing whether ACC brakes to a collision-free stop with at least 2 m clearance.\",\n  \"duration\": 25,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 25,\n    \"set_speed\": 25\n  },\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 35,\n      \"speed\": 25,\n      \"events\": [\n        {\n          \"t\": 1,\n          \"type\": \"lane_change\",\n          \"target_lane\": 2\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 150,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.93\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 3,
+   "latency_s": 26.299334199999976,
+   "tokens": 2945,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle moves into the adjacent lane, revealing a stopped vehicle in the ego lane and testing whether the ego avoids collision and stops with at least 2 m clearance.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 25,
+      "events": [
+       {
+        "t": 1,
+        "type": "lane_change",
+        "target_lane": 0
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 130,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.95
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.050000000000000044,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3967044275861107,
+     "min_gap": 4.341662827983583,
+     "min_ttc": 3.6621267730325453,
+     "max_decel": 4.90000000000002,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7417727000010927
+   },
+   "raw": "{\n  \"rationale\": \"A lead vehicle moves into the adjacent lane, revealing a stopped vehicle in the ego lane and testing whether the ego avoids collision and stops with at least 2 m clearance.\",\n  \"duration\": 20,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 25,\n    \"set_speed\": 25\n  },\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 30,\n      \"speed\": 25,\n      \"events\": [\n        {\n          \"t\": 1,\n          \"type\": \"lane_change\",\n          \"target_lane\": 0\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 130,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.95\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 4,
+   "latency_s": 25.214487399999598,
+   "tokens": 2992,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "The moving lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing that ego brakes without collision and stops at least 2 m behind it.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 25,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 160,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.34477061890336147,
+     "min_gap": 4.513440308532523,
+     "min_ttc": 3.662757928824392,
+     "max_decel": 4.90000000000002,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.795738199999505
+   },
+   "raw": "{\n  \"rationale\": \"The moving lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing that ego brakes without collision and stops at least 2 m behind it.\",\n  \"duration\": 20,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 25,\n    \"set_speed\": 25\n  },\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 30,\n      \"speed\": 25,\n      \"events\": [\n        {\n          \"t\": 2,\n          \"type\": \"lane_change\",\n          \"target_lane\": 2\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 160,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.93\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 5,
+   "latency_s": 20.172482599999967,
+   "tokens": 14587,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A moving lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and requiring the ego to brake to a collision-free stop with at least 2 m clearance.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 25,
+      "events": [
+       {
+        "t": 1,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 155,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3561214446299016,
+     "min_gap": 4.475896049675413,
+     "min_ttc": 3.6574730412509844,
+     "max_decel": 4.90000000000002,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.740318400000433
+   },
+   "raw": "{\n  \"rationale\": \"A moving lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and requiring the ego to brake to a collision-free stop with at least 2 m clearance.\",\n  \"duration\": 20,\n  \"ego\": {\"lane\": 1, \"speed\": 25, \"set_speed\": 25},\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 30,\n      \"speed\": 25,\n      \"events\": [{\"t\": 1, \"type\": \"lane_change\", \"target_lane\": 2}]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 155,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\"template\": \"no_collision\", \"params\": {}},\n    {\"template\": \"stop_gap\", \"params\": {\"d\": 2}}\n  ],\n  \"confidence\": 0.94\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 6,
+   "latency_s": 30.579346699999405,
+   "tokens": 3024,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing whether the ego avoids collision and stops with at least 2 m clearance.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 25,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 150,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.37490593103857706,
+     "min_gap": 4.413764027277551,
+     "min_ttc": 3.4630270319814125,
+     "max_decel": 5.000000000000009,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.7691832000009526
+   },
+   "raw": "{\n  \"rationale\": \"A lead vehicle changes into an adjacent lane, revealing a stopped vehicle in the ego lane and testing whether the ego avoids collision and stops with at least 2 m clearance.\",\n  \"duration\": 20,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 25,\n    \"set_speed\": 25\n  },\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 35,\n      \"speed\": 25,\n      \"events\": [\n        {\n          \"t\": 2,\n          \"type\": \"lane_change\",\n          \"target_lane\": 2\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 150,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.94\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 7,
+   "latency_s": 27.665748200000053,
+   "tokens": 2976,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing whether the ego avoids collision and stops with at least 2 m of clearance.",
+    "duration": 25,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 25,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 180,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.4580802261333036,
+     "min_gap": 4.138654813742761,
+     "min_ttc": 3.6489459772774344,
+     "max_decel": 4.580548713897201,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.9731988999983514
+   },
+   "raw": "{\n  \"rationale\": \"A moving lead vehicle leaves the ego lane to reveal a stopped vehicle, testing whether the ego avoids collision and stops with at least 2 m of clearance.\",\n  \"duration\": 25,\n  \"ego\": {\"lane\": 1, \"speed\": 25, \"set_speed\": 25},\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 35,\n      \"speed\": 25,\n      \"events\": [{\"t\": 2, \"type\": \"lane_change\", \"target_lane\": 2}]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 180,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\"template\": \"no_collision\", \"params\": {}},\n    {\"template\": \"stop_gap\", \"params\": {\"d\": 2}}\n  ],\n  \"confidence\": 0.94\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 8,
+   "latency_s": 19.066313100000116,
+   "tokens": 2968,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A moving lead vehicle changes into the adjacent lane to reveal a stopped vehicle, testing whether the ego brakes without collision and stops with at least a 2 m gap.",
+    "duration": 25,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "occluding_lead",
+      "lane": 1,
+      "rel_x": 35,
+      "speed": 25,
+      "events": [
+       {
+        "t": 3,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 180,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.45831703214701874,
+     "min_gap": 4.137871548683307,
+     "min_ttc": 3.6384542526925143,
+     "max_decel": 4.770653487364935,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.882642699999451
+   },
+   "raw": "{\n  \"rationale\": \"A moving lead vehicle changes into the adjacent lane to reveal a stopped vehicle, testing whether the ego brakes without collision and stops with at least a 2 m gap.\",\n  \"duration\": 25,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 25,\n    \"set_speed\": 25\n  },\n  \"npcs\": [\n    {\n      \"id\": \"occluding_lead\",\n      \"lane\": 1,\n      \"rel_x\": 35,\n      \"speed\": 25,\n      \"events\": [\n        {\n          \"t\": 3,\n          \"type\": \"lane_change\",\n          \"target_lane\": 2\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 180,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.94\n}"
+  },
+  {
+   "rid": "R6",
+   "model": "gpt-6-astra",
+   "idx": 9,
+   "latency_s": 28.192655099999683,
+   "tokens": 2991,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A lead vehicle changes to an adjacent lane, revealing a stationary vehicle in the ego lane and testing whether the ego avoids collision and stops at least 2 m behind it.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 20,
+     "set_speed": 20
+    },
+    "npcs": [
+     {
+      "id": "departing_lead",
+      "lane": 1,
+      "rel_x": 30,
+      "speed": 20,
+      "events": [
+       {
+        "t": 2,
+        "type": "lane_change",
+        "target_lane": 2
+       }
+      ]
+     },
+     {
+      "id": "stopped_vehicle",
+      "lane": 1,
+      "rel_x": 130,
+      "speed": 0,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "stop_gap",
+      "params": {
+       "d": 2
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 0.3794471605743338,
+     "min_gap": 4.398743370319835,
+     "min_ttc": 3.7105123195161407,
+     "max_decel": 3.6956784357469807,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "stopped vehicle hidden behind the lead; ego reaches standstill",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M8_zero_standstill_gap"
+    ],
+    "killed_ref": [
+     "M8_zero_standstill_gap"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": true,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": false
+    },
+    "sim_seconds_all": 0.6913502000006702
+   },
+   "raw": "{\n  \"rationale\": \"A lead vehicle changes to an adjacent lane, revealing a stationary vehicle in the ego lane and testing whether the ego avoids collision and stops at least 2 m behind it.\",\n  \"duration\": 20,\n  \"ego\": {\n    \"lane\": 1,\n    \"speed\": 20,\n    \"set_speed\": 20\n  },\n  \"npcs\": [\n    {\n      \"id\": \"departing_lead\",\n      \"lane\": 1,\n      \"rel_x\": 30,\n      \"speed\": 20,\n      \"events\": [\n        {\n          \"t\": 2,\n          \"type\": \"lane_change\",\n          \"target_lane\": 2\n        }\n      ]\n    },\n    {\n      \"id\": \"stopped_vehicle\",\n      \"lane\": 1,\n      \"rel_x\": 130,\n      \"speed\": 0,\n      \"events\": []\n    }\n  ],\n  \"oracle\": [\n    {\n      \"template\": \"no_collision\",\n      \"params\": {}\n    },\n    {\n      \"template\": \"stop_gap\",\n      \"params\": {\n        \"d\": 2\n      }\n    }\n  ],\n  \"confidence\": 0.94\n}"
+  }
+ ]
+}

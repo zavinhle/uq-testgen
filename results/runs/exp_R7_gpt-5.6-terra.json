@@ -1,0 +1,1036 @@
+{
+ "run_id": "exp_R7_gpt-5.6-terra",
+ "rid": "R7",
+ "requirement": {
+  "title": "Comfortable approach",
+  "text": "When the ego vehicle approaches a slower vehicle in its lane starting from a gap of more than 100 m with a speed difference of at most 10 m/s, it shall adapt its speed comfortably: the ego deceleration shall never exceed 3 m/s^2."
+ },
+ "model": "gpt-5.6-terra",
+ "n": 10,
+ "wall_seconds": 43.18562909999946,
+ "batch_uq": {
+  "struct_entropy": 0.0,
+  "behav_entropy": 0.0,
+  "n_struct_clusters": 1,
+  "n_behav_clusters": 1,
+  "mean_verbal_conf": 0.945
+ },
+ "samples": [
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 0,
+   "latency_s": 9.203370899999754,
+   "tokens": 1535,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego closes a 10 m/s speed difference to a slower same-lane lead vehicle from an initial gap above 100 m, exercising ACC comfort braking.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.97
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.030000000000000027,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.7856359000006705
+   },
+   "raw": "{\"rationale\":\"Ego closes a 10 m/s speed difference to a slower same-lane lead vehicle from an initial gap above 100 m, exercising ACC comfort braking.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.97}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 1,
+   "latency_s": 13.339364000000387,
+   "tokens": 1533,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "The ego closes a 10 m/s speed difference to a slower in-lane lead vehicle from an initial gap above 100 m, exercising comfortable ACC braking.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8412212000012005
+   },
+   "raw": "{\"rationale\":\"The ego closes a 10 m/s speed difference to a slower in-lane lead vehicle from an initial gap above 100 m, exercising comfortable ACC braking.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 2,
+   "latency_s": 17.443679699999848,
+   "tokens": 1645,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego closes on a slower lead vehicle from an initial 110 m gap with an 8 m/s speed difference, exercising comfortable ACC speed adaptation.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 39.21568096374392,
+     "min_ttc": 8.854139903554094,
+     "max_decel": 1.5331637835053158,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.0751960000006875
+   },
+   "raw": "{\"rationale\":\"Ego closes on a slower lead vehicle from an initial 110 m gap with an 8 m/s speed difference, exercising comfortable ACC speed adaptation.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":110,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 3,
+   "latency_s": 11.410497299999406,
+   "tokens": 1531,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "A stationary lead vehicle more than 100 m ahead creates a closing-speed case at the 10 m/s limit and directly checks the required comfort bound.",
+    "duration": 20,
+    "ego": {
+     "lane": 1,
+     "speed": 25,
+     "set_speed": 25
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 15,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.92
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.07999999999999996,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 28.340798366002616,
+     "min_ttc": 6.677313024137036,
+     "max_decel": 1.916140469193639,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.066795300001104
+   },
+   "raw": "{\"rationale\":\"A stationary lead vehicle more than 100 m ahead creates a closing-speed case at the 10 m/s limit and directly checks the required comfort bound.\",\"duration\":20,\"ego\":{\"lane\":1,\"speed\":25,\"set_speed\":25},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":110,\"speed\":15,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.92}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 4,
+   "latency_s": 9.401584500000354,
+   "tokens": 1538,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego closes a 10 m/s speed differential from an initial 110 m gap to a slower same-lane lead vehicle, directly exercising the comfort-deceleration limit.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.012588099427944,
+     "min_ttc": 7.514090591241102,
+     "max_decel": 1.916140469193639,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.1001606000018
+   },
+   "raw": "{\"rationale\":\"Ego closes a 10 m/s speed differential from an initial 110 m gap to a slower same-lane lead vehicle, directly exercising the comfort-deceleration limit.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":110,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.93}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 5,
+   "latency_s": 21.248053700000128,
+   "tokens": 1618,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego begins more than 100 m behind a slower same-lane vehicle with an 8 m/s speed difference, requiring ACC to close the gap while maintaining comfortable braking.",
+    "duration": 25,
+    "ego": {
+     "lane": 1,
+     "speed": 28,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.93
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06999999999999995,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.063830265744514,
+     "min_ttc": 7.59633066630275,
+     "max_decel": 1.8748654489418115,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.6241426000015053
+   },
+   "raw": "{\"rationale\":\"Ego begins more than 100 m behind a slower same-lane vehicle with an 8 m/s speed difference, requiring ACC to close the gap while maintaining comfortable braking.\",\"duration\":25,\"ego\":{\"lane\":1,\"speed\":28,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":110,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.93}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 6,
+   "latency_s": 14.046783400000095,
+   "tokens": 1540,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego closes a 10 m/s speed difference from an initial gap above 100 m behind a slower same-lane lead vehicle, directly exercising the comfort deceleration limit.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8915932999998404
+   },
+   "raw": "{\"rationale\":\"Ego closes a 10 m/s speed difference from an initial gap above 100 m behind a slower same-lane lead vehicle, directly exercising the comfort deceleration limit.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.94}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 7,
+   "latency_s": 9.656472000000576,
+   "tokens": 1532,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego begins over 100 m behind a slower in-lane lead with a 10 m/s closing-speed difference, directly exercising the comfortable-deceleration limit.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.01708450941112,
+     "min_ttc": 7.514090591241089,
+     "max_decel": 1.9161404691936923,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 1.1857886000007056
+   },
+   "raw": "{\"rationale\":\"Ego begins over 100 m behind a slower in-lane lead with a 10 m/s closing-speed difference, directly exercising the comfortable-deceleration limit.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.94}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 8,
+   "latency_s": 7.32982660000016,
+   "tokens": 1532,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego approaches a steady slower lead from 110 m away with a 10 m/s closing speed, directly exercising the maximum comfortable-deceleration requirement.",
+    "duration": 30,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 110,
+      "speed": 20,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.96
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.040000000000000036,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 36.012588099427944,
+     "min_ttc": 7.514090591241102,
+     "max_decel": 1.916140469193639,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 109 m (needs 100..150 within radar), speed difference 10.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.25,
+    "ms_gen": 0.25,
+    "killed_gen": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "killed_ref": [
+     "M4_short_sensor",
+     "M7_no_rel_speed"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": false,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.8815204999991693
+   },
+   "raw": "{\"rationale\":\"Ego approaches a steady slower lead from 110 m away with a 10 m/s closing speed, directly exercising the maximum comfortable-deceleration requirement.\",\"duration\":30,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":110,\"speed\":20,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.96}"
+  },
+  {
+   "rid": "R7",
+   "model": "gpt-5.6-terra",
+   "idx": 9,
+   "latency_s": 7.738818399999218,
+   "tokens": 1609,
+   "llm_error": null,
+   "scenario": {
+    "rationale": "Ego approaches a slower in-lane lead vehicle from a 120 m gap with an 8 m/s closing-speed difference, exercising ACC comfort braking.",
+    "duration": 35,
+    "ego": {
+     "lane": 1,
+     "speed": 30,
+     "set_speed": 30
+    },
+    "npcs": [
+     {
+      "id": "lead",
+      "lane": 1,
+      "rel_x": 120,
+      "speed": 22,
+      "events": []
+     }
+    ],
+    "oracle": [
+     {
+      "template": "no_collision",
+      "params": {}
+     },
+     {
+      "template": "max_decel",
+      "params": {
+       "a": 3
+      }
+     }
+    ],
+    "confidence": 0.94
+   },
+   "parse_error": null,
+   "validation_errors": [],
+   "uq": {
+    "U_verbal": 0.06000000000000005,
+    "U_struct": 0.0,
+    "U_behav": 0.0,
+    "U_oracle": 0.0,
+    "U_comb": 0.0,
+    "features": {
+     "verdict": true,
+     "robustness": 1.0,
+     "min_gap": 39.20498834658258,
+     "min_ttc": 8.854521567714473,
+     "max_decel": 1.5332379403671936,
+     "aeb": false,
+     "crashed": false,
+     "lead_present": 1.0
+    }
+   },
+   "triage": "accept",
+   "gt": {
+    "activated": true,
+    "activation_note": "initial gap 119 m (needs 100..150 within radar), speed difference 8.0 m/s (needs <=10)",
+    "in_odd": true,
+    "false_alarm": false,
+    "oracle_agreement": 1.0,
+    "correct": true,
+    "label": "correct & effective",
+    "ms_ref": 0.125,
+    "ms_gen": 0.125,
+    "killed_gen": [
+     "M4_short_sensor"
+    ],
+    "killed_ref": [
+     "M4_short_sensor"
+    ],
+    "ref_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "gen_verdicts": {
+     "correct": true,
+     "M1_short_time_gap": true,
+     "M2_late_aeb": true,
+     "M3_narrow_corridor": true,
+     "M4_short_sensor": false,
+     "M5_set_speed_overshoot": true,
+     "M6_weak_actuator": true,
+     "M7_no_rel_speed": true,
+     "M8_zero_standstill_gap": true
+    },
+    "sim_seconds_all": 0.9056472000020221
+   },
+   "raw": "{\"rationale\":\"Ego approaches a slower in-lane lead vehicle from a 120 m gap with an 8 m/s closing-speed difference, exercising ACC comfort braking.\",\"duration\":35,\"ego\":{\"lane\":1,\"speed\":30,\"set_speed\":30},\"npcs\":[{\"id\":\"lead\",\"lane\":1,\"rel_x\":120,\"speed\":22,\"events\":[]}],\"oracle\":[{\"template\":\"no_collision\",\"params\":{}},{\"template\":\"max_decel\",\"params\":{\"a\":3}}],\"confidence\":0.94}"
+  }
+ ]
+}

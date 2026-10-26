@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UQ-TestGen</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { font-family: Inter, system-ui, sans-serif; background: #f5f7fb; color: #1f2430; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .card { background: #fff; border: 1px solid #e6e9f0; border-radius: 14px; }
+  .chip { display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:600; padding:2px 8px; border-radius:999px; }
+  .bar { height:6px; border-radius:99px; background:#eef1f6; overflow:hidden; }
+  .bar > div { height:100%; border-radius:99px; }
+  .spin { animation: spin 1s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }
+  .fade { animation: fade .35s ease-out; } @keyframes fade { from { opacity:0; transform: translateY(4px);} to {opacity:1; transform:none;} }
+  .tab-active { background:#1f2a44; color:#fff; }
+  .sample.sel { outline: 2px solid #2563eb; outline-offset: 1px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; } ::-webkit-scrollbar-thumb { background:#cfd5e1; border-radius: 8px; }
+</style>
+</head>
+<body class="min-h-screen">
+<header class="bg-[#121a2e] text-white">
+  <div class="max-w-[1500px] mx-auto px-6 py-3 flex items-center gap-4">
+    <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-emerald-400 grid place-items-center font-bold">U</div>
+    <div>
+      <div class="font-semibold tracking-tight">UQ-TestGen</div>
+      <div class="text-xs text-slate-300">Uncertainty-aware LLM test generation for autonomous cyber-physical systems</div>
+    </div>
+    <nav class="ml-auto flex gap-1 bg-white/10 p-1 rounded-lg text-sm" id="tabs">
+      <button data-tab="pipeline" class="px-3 py-1.5 rounded-md tab-active">Pipeline</button>
+      <button data-tab="experiment" class="px-3 py-1.5 rounded-md">Experiment</button>
+      <button data-tab="history" class="px-3 py-1.5 rounded-md">Runs</button>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-[1500px] mx-auto px-6 py-5">
+<!-- ================= PIPELINE ================= -->
+<section id="tab-pipeline">
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-12 lg:col-span-4 card p-4">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">1 · Requirement under test</div>
+      <select id="rid" class="w-full border rounded-lg px-3 py-2 text-sm mb-2"></select>
+      <p id="rtext" class="text-sm text-slate-700 bg-slate-50 rounded-lg p-3 leading-relaxed min-h-[84px]"></p>
+      <div class="grid grid-cols-2 gap-3 mt-3">
+        <label class="text-xs text-slate-500">LLM (Codex · ChatGPT login)
+          <select id="model" class="w-full border rounded-lg px-2 py-1.5 text-sm mt-1 text-slate-800"></select></label>
+        <label class="text-xs text-slate-500">Samples N = <b id="nval">8</b>
+          <input id="n" type="range" min="4" max="12" value="8" class="w-full mt-3"></label>
+      </div>
+      <label class="flex items-center gap-2 text-sm mt-3 text-slate-600"><input id="gt" type="checkbox" checked> Research mode: compute ground truth via fault injection (8 mutants)</label>
+      <button id="run" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-2.5 flex items-center justify-center gap-2">▶ Run end-to-end pipeline</button>
+    </div>
+
+    <div class="col-span-12 lg:col-span-8 card p-4">
+      <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">2 · Pipeline</div>
+      <div id="stepper" class="grid grid-cols-6 gap-2"></div>
+      <div class="grid grid-cols-4 gap-3 mt-4" id="batch"></div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-12 gap-4 mt-4">
+    <div class="col-span-12 xl:col-span-7 card p-4">
+      <div class="flex items-center mb-3">
+        <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">3 · Generated tests & risk-based triage</div>
+        <div class="ml-auto flex gap-2 text-xs" id="triageCounts"></div>
+      </div>
+      <div id="samples" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+      <div id="emptySamples" class="text-sm text-slate-400 py-10 text-center">Select a requirement and run the pipeline.</div>
+    </div>
+    <div class="col-span-12 xl:col-span-5 card p-4" id="detail">
+      <div class="text-sm text-slate-400 py-10 text-center">Select a test to inspect its scenario, uncertainty and verdicts.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EXPERIMENT ================= -->
+<section id="tab-experiment" class="hidden">
+  <div id="expKpis" class="grid grid-cols-2 md:grid-cols-5 gap-3"></div>
+  <div class="grid grid-cols-12 gap-4 mt-4">
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-1">Does uncertainty detect incorrect tests?</div><div class="text-xs text-slate-500 mb-2">AUROC per uncertainty metric, all valid generated tests</div><img src="/figures/auroc.png" class="w-full"></div>
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-1">Risk–coverage: auto-accept the least uncertain tests</div><div class="text-xs text-slate-500 mb-2">Precision of accepted tests as more tests are accepted</div><img src="/figures/risk_coverage.png" class="w-full"></div>
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-1">Uncertainty vs. effectiveness</div><div class="text-xs text-slate-500 mb-2">Each dot is a generated test; mutation score of its own oracle</div><img src="/figures/scatter.png" class="w-full"></div>
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-1">Batch-level: behavioural entropy flags hard requirements</div><div class="text-xs text-slate-500 mb-2">Each dot is one requirement × model batch (N samples)</div><img src="/figures/batch_entropy.png" class="w-full"></div>
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-1">What goes wrong? Outcome per model</div><img src="/figures/outcomes.png" class="w-full mt-2"></div>
+    <div class="col-span-12 lg:col-span-6 card p-4"><div class="font-semibold mb-2">Per model (incl. non-functional cost)</div><div id="modelTable"></div></div>
+  </div>
+</section>
+
+<!-- ================= HISTORY ================= -->
+<section id="tab-history" class="hidden">
+  <div class="card p-4"><div class="font-semibold mb-3">Stored runs</div><div id="runs"></div></div>
+</section>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const STAGES = [["generate","LLM generation","N independent samples"],["validate","Rule-based gate","schema + physics"],["execute","Simulation","highway-env SUT"],["uq","Uncertainty","4 UQ signals"],["triage","Risk triage","accept / review / reject"],["ground_truth","Ground truth","8 seeded faults"]];
+const TRI = {accept:["#16a34a","#dcfce7","Accept"], review:["#b45309","#fef3c7","Human review"], reject:["#dc2626","#fee2e2","Reject"]};
+const LBL = {"correct & effective":["#166534","#dcfce7"],"correct but weak":["#3f6212","#ecfccb"],"wrong oracle":["#9a3412","#ffedd5"],"false alarm oracle":["#92400e","#fef3c7"],"irrelevant scenario":["#991b1b","#fee2e2"],"outside ODD":["#9f1239","#ffe4e6"]};
+const UQN = {U_verbal:"Verbalised confidence (baseline)",U_struct:"Structural entropy",U_behav:"Behavioural entropy",U_oracle:"Oracle disagreement",U_comb:"Combined uncertainty"};
+let META, state = null, selIdx = null;
+
+function fmt(x,d=2){ return x==null||isNaN(x) ? "–" : Number(x).toFixed(d); }
+function pct(x){ return x==null ? "–" : Math.round(x*100)+"%"; }
+function uColor(u){ return u<=0.25?"#16a34a":(u<0.55?"#d97706":"#dc2626"); }
+
+async function init(){
+  META = await (await fetch("/api/meta")).json();
+  for (const [k,r] of Object.entries(META.requirements)) $("#rid").insertAdjacentHTML("beforeend", `<option value="${k}">${k} · ${r.title}</option>`);
+  for (const m of META.models) $("#model").insertAdjacentHTML("beforeend", `<option>${m}</option>`);
+  const upd = () => $("#rtext").textContent = META.requirements[$("#rid").value].text; $("#rid").onchange = upd; upd();
+  $("#n").oninput = e => $("#nval").textContent = e.target.value;
+  $("#run").onclick = startRun;
+  document.querySelectorAll("#tabs button").forEach(b => b.onclick = () => showTab(b.dataset.tab));
+  resetState(); render();
+}
+function showTab(t){
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("tab-active", b.dataset.tab===t));
+  ["pipeline","experiment","history"].forEach(x => $("#tab-"+x).classList.toggle("hidden", x!==t));
+  if (t==="experiment") loadSummary(); if (t==="history") loadRuns();
+}
+function resetState(){ state = {run_id:null, stages:{}, samples:{}, batch:null, n:+$("#n").value, gt:$("#gt").checked}; selIdx=null; }
+
+function startRun(){
+  resetState();
+  const body = {rid:$("#rid").value, model:$("#model").value, n:+$("#n").value, ground_truth:$("#gt").checked};
+  state.rid = body.rid; state.model = body.model;
+  $("#run").disabled = true; $("#run").innerHTML = `<span class="spin inline-block w-4 h-4 border-2 border-white/40 border-t-white rounded-full"></span> Running…`;
+  fetch("/api/runs",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(r=>r.json()).then(({run_id})=>{
+    state.run_id = run_id; state.stages.generate = "running"; render();
+    const es = new EventSource(`/api/runs/${run_id}/events`);
+    es.addEventListener("stage", e => { const d = JSON.parse(e.data); state.stages[d.stage] = d.status; if (d.stage==="uq" && d.status==="done") state.stages.triage="done"; if(d.stage==="execute"&&d.status==="running"){} render(); });
+    es.addEventListener("sample", e => { const d = JSON.parse(e.data); state.samples[d.idx] = {...d}; render(); });
+    es.addEventListener("executed", e => { const d = JSON.parse(e.data); if (state.samples[d.idx]) state.samples[d.idx].executed = true; render(); });
+    es.addEventListener("uq", e => { const d = JSON.parse(e.data); state.batch = d.batch; for (const [i,u] of Object.entries(d.per_sample)) { Object.assign(state.samples[i], {uq:u, triage:u.triage}); } for (const s of Object.values(state.samples)) if (!s.uq) s.triage="reject"; render(); });
+    es.addEventListener("gt", e => { const d = JSON.parse(e.data); state.samples[d.idx].gt = d; render(); });
+    es.addEventListener("done", async e => { es.close(); await loadRun(run_id, true); finish(); });
+    es.addEventListener("error", e => { if (e.data) alert(JSON.parse(e.data).message); });
+  });
+}
+function finish(){ $("#run").disabled=false; $("#run").innerHTML="▶ Run end-to-end pipeline"; }
+
+async function loadRun(run_id, keepSel){
+  const r = await (await fetch(`/api/runs/${run_id}`)).json();
+  const prevSel = selIdx; resetState(); if (keepSel) selIdx = prevSel;
+  state.run_id = r.run_id; state.n = r.n; state.rid = r.rid; state.model = r.model; state.batch = r.batch_uq; state.full = r;
+  for (const s of r.samples) state.samples[s.idx] = s;
+  STAGES.forEach(([k]) => state.stages[k] = (k==="ground_truth" && !r.samples.some(s=>s.gt)) ? "skipped" : "done");
+  $("#rid").value = r.rid; $("#rtext").textContent = r.requirement.text; $("#model").value = r.model;
+  render();
+}
+
+function render(){ renderStepper(); renderBatch(); renderSamples(); renderDetail(); }
+
+function renderStepper(){
+  const ss = Object.values(state.samples);
+  const info = {generate:`${ss.length}/${state.n || ss.length} samples`, validate: state.stages.validate? `${ss.filter(s=>!(s.validation_errors||[]).length).length} valid`:"",
+    execute: `${ss.filter(s=>s.executed||s.uq).length} simulated`, uq: state.batch? `${state.batch.n_behav_clusters??"–"} behaviour clusters`:"",
+    triage: state.batch? ["accept","review","reject"].map(t=>ss.filter(s=>s.triage===t).length).join(" / "):"", ground_truth: `${ss.filter(s=>s.gt).length} labelled`};
+  $("#stepper").innerHTML = STAGES.map(([k,t,sub],i) => {
+    const st = state.stages[k];
+    const ic = st==="done" ? `<div class="w-7 h-7 rounded-full bg-emerald-500 text-white grid place-items-center text-sm">✓</div>`
+      : st==="running" ? `<div class="w-7 h-7 rounded-full border-[3px] border-blue-200 border-t-blue-600 spin"></div>`
+      : st==="skipped" ? `<div class="w-7 h-7 rounded-full bg-slate-200 text-slate-500 grid place-items-center text-xs">–</div>`
+      : `<div class="w-7 h-7 rounded-full bg-slate-100 text-slate-400 grid place-items-center text-xs font-semibold">${i+1}</div>`;
+    return `<div class="rounded-xl p-3 ${st==="running"?"bg-blue-50":"bg-slate-50"}">${ic}<div class="text-sm font-semibold mt-2 leading-tight">${t}</div><div class="text-[11px] text-slate-500">${sub}</div><div class="text-[11px] text-blue-700 font-medium mt-1 mono">${st?info[k]:""}</div></div>`;
+  }).join("");
+}
+
+function renderBatch(){
+  const b = state.batch || {};
+  const risk = b.behav_entropy==null ? null : (b.behav_entropy + b.struct_entropy)/2;
+  const tiles = [["Structural entropy", fmt(b.struct_entropy), `${b.n_struct_clusters??"–"} structural clusters`],
+    ["Behavioural entropy", fmt(b.behav_entropy), `${b.n_behav_clusters??"–"} behaviour clusters`],
+    ["LLM self-confidence", b.mean_verbal_conf==null?"–":pct(b.mean_verbal_conf), "mean verbalised"],
+    ["Batch risk", risk==null?"–":(risk<0.3?"LOW":risk<0.55?"MEDIUM":"HIGH"), "requirement-level uncertainty"]];
+  $("#batch").innerHTML = tiles.map(([t,v,s],i)=>`<div class="rounded-xl border border-slate-100 p-3"><div class="text-[11px] text-slate-500 uppercase tracking-wide">${t}</div><div class="text-2xl font-bold mt-1" style="color:${i===3&&risk!=null?uColor(risk):'#1f2430'}">${v}</div><div class="text-[11px] text-slate-400">${s}</div></div>`).join("");
+}
+
+function scenarioLine(sc){
+  if (!sc) return "unparseable";
+  const ev = (sc.npcs||[]).flatMap(n => (n.events||[]).map(e => e.type==="lane_change" ? `${n.id||"npc"} → lane ${e.target_lane} @${e.t}s` : `${n.id||"npc"} → ${e.target_speed} m/s (${e.rate} m/s²) @${e.t}s`));
+  return `ego ${sc.ego?.speed} m/s (set ${sc.ego?.set_speed}) · ${(sc.npcs||[]).length} npc · ${ev.join(", ") || "no events"}`;
+}
+function oracleLine(sc){ return (sc?.oracle||[]).map(c => `${c.template}(${Object.entries(c.params||{}).map(([k,v])=>`${k}=${v}`).join(", ")})`).join(" ∧ "); }
+
+function renderSamples(){
+  const ss = Object.values(state.samples).sort((a,b)=>a.idx-b.idx);
+  $("#emptySamples").classList.toggle("hidden", ss.length>0);
+  $("#triageCounts").innerHTML = state.batch ? ["accept","review","reject"].map(t=>`<span class="chip" style="color:${TRI[t][0]};background:${TRI[t][1]}">${TRI[t][2]} ${ss.filter(s=>s.triage===t).length}</span>`).join("") : "";
+  $("#samples").innerHTML = ss.map(s => {
+    const sc = s.scenario, inv = (s.validation_errors||[]).length, u = s.uq;
+    const tri = s.triage ? `<span class="chip" style="color:${TRI[s.triage][0]};background:${TRI[s.triage][1]}">${TRI[s.triage][2]}</span>` : `<span class="chip bg-slate-100 text-slate-500">pending</span>`;
+    const gt = s.gt ? `<span class="chip" style="color:${(LBL[s.gt.label]||["#334155"])[0]};background:${(LBL[s.gt.label]||["","#f1f5f9"])[1]}">GT: ${s.gt.label} · MS ${pct(s.gt.ms_gen)}</span>` : (inv?`<span class="chip bg-slate-100 text-slate-600">GT: invalid</span>`:"");
+    return `<div class="sample fade rounded-xl border border-slate-200 p-3 cursor-pointer hover:border-blue-300 ${selIdx===s.idx?"sel":""}" onclick="selIdx=${s.idx};render()">
+      <div class="flex items-center gap-2"><span class="mono text-xs text-slate-400">#${s.idx}</span>
+        ${inv?`<span class="chip bg-rose-100 text-rose-700">rule gate: invalid</span>`:`<span class="chip bg-slate-100 text-slate-600">conf ${pct(sc?.confidence)}</span>`}
+        <span class="ml-auto">${tri}</span></div>
+      <div class="text-[12px] text-slate-700 mt-2 leading-snug">${inv ? (s.validation_errors||[]).join("; ") : scenarioLine(sc)}</div>
+      <div class="mono text-[11px] text-indigo-700 mt-1 truncate">${inv?"":oracleLine(sc)}</div>
+      ${u?`<div class="flex items-center gap-2 mt-2"><span class="text-[11px] text-slate-500 w-20">uncertainty</span><div class="bar flex-1"><div style="width:${Math.max(3,u.U_comb*100)}%;background:${uColor(u.U_comb)}"></div></div><span class="mono text-[11px] w-9 text-right">${fmt(u.U_comb)}</span></div>`:""}
+      <div class="mt-2">${gt}</div></div>`;
+  }).join("");
+}
+
+function renderDetail(){
+  const s = state.samples[selIdx];
+  if (!s) { $("#detail").innerHTML = `<div class="text-sm text-slate-400 py-10 text-center">Select a test to inspect its scenario, uncertainty and verdicts.</div>`; return; }
+  const sc = s.scenario || {}, u = s.uq, inv = (s.validation_errors||[]).length;
+  const bars = u ? Object.keys(UQN).map(k => `<div class="flex items-center gap-2 text-[12px] mb-1.5"><span class="w-48 text-slate-600">${UQN[k]}</span><div class="bar flex-1"><div style="width:${Math.max(2,u[k]*100)}%;background:${k==="U_verbal"?"#94a3b8":(k==="U_comb"?uColor(u[k]):"#6366f1")}"></div></div><span class="mono w-10 text-right">${fmt(u[k])}</span></div>`).join("") : "";
+  const g = s.gt;
+  const versions = g && g.ref_verdicts ? Object.keys(g.ref_verdicts) : [];
+  const vtab = versions.length ? `<table class="w-full text-[11px] mt-2"><tr class="text-slate-500"><th class="text-left font-medium">SUT version</th><th>reference oracle</th><th>generated oracle</th></tr>${versions.map(v=>`<tr class="border-t border-slate-100"><td class="mono py-1">${v}</td>${[g.ref_verdicts[v],g.gen_verdicts[v]].map(p=>`<td class="text-center ${p?"text-emerald-600":"text-rose-600 font-semibold"}">${p?"pass":"FAIL"}</td>`).join("")}</tr>`).join("")}</table>` : "";
+  const killed = (g?.killed_gen||[]);
+  const gifSel = inv ? "" : `<div class="flex items-center gap-2 mt-1 mb-2"><span class="text-xs text-slate-500">Replay on</span><select id="gifv" class="border rounded px-2 py-1 text-xs">${["correct",...META.mutants].map(v=>`<option ${v===(s._gifv||"correct")?"selected":""}>${v}</option>`).join("")}</select>${killed.length?`<span class="text-[11px] text-slate-400">killed: ${killed.join(", ")}</span>`:""}</div>
+     <img id="gifimg" class="w-full rounded-lg border border-slate-200 bg-slate-600 min-h-[120px]" src="/api/runs/${state.run_id}/gif/${s.idx}?version=${s._gifv||"correct"}">`;
+  $("#detail").innerHTML = `<div class="fade">
+    <div class="flex items-center gap-2"><div class="font-semibold">Test #${s.idx}</div>${s.triage?`<span class="chip" style="color:${TRI[s.triage][0]};background:${TRI[s.triage][1]}">${TRI[s.triage][2]}</span>`:""}
+      <span class="ml-auto text-[11px] text-slate-400 mono">${fmt(s.latency_s,1)} s · ${s.tokens??"–"} tok</span></div>
+    <p class="text-[13px] text-slate-600 mt-1 italic">${sc.rationale||""}</p>
+    ${state.run_id && !inv ? gifSel : ""}
+    ${u?`<div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mt-4 mb-2">Uncertainty signals (no ground truth needed)</div>${bars}`:""}
+    ${g?`<div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mt-4">Ground truth (research mode)</div>
+      <div class="flex gap-2 mt-1 flex-wrap"><span class="chip" style="color:${(LBL[g.label]||["#334155"])[0]};background:${(LBL[g.label]||["","#f1f5f9"])[1]}">${g.label}</span><span class="chip bg-slate-100 text-slate-700">mutation score ${pct(g.ms_gen)}</span><span class="chip bg-slate-100 text-slate-700">oracle agreement ${pct(g.oracle_agreement)}</span></div>
+      ${g.activation_note?`<div class="text-[11px] text-slate-500 mt-1">Precondition: ${g.activation_note}</div>`:""}${vtab}`:""}
+    <details class="mt-3"><summary class="text-xs text-slate-500 cursor-pointer">Generated artefact (JSON)</summary><pre class="mono text-[10.5px] bg-slate-50 rounded p-2 mt-1 overflow-auto max-h-72">${JSON.stringify(sc,null,1)}</pre></details>
+  </div>`;
+  const gv = $("#gifv"); if (gv) gv.onchange = e => { s._gifv = e.target.value; $("#gifimg").src = `/api/runs/${state.run_id}/gif/${s.idx}?version=${s._gifv}`; };
+}
+
+async function loadSummary(){
+  const r = await fetch("/api/summary"); if (!r.ok) { $("#expKpis").innerHTML = `<div class="card p-4 col-span-5 text-slate-500">No experiment summary yet.</div>`; return; }
+  const S = await r.json(), o = S.overall, a = S.auroc_incorrect;
+  const k = [["Generated tests", S.n_samples, `${S.models.length} LLMs × ${Object.keys(S.by_req).length} requirements`],["Pass rule-based gate", pct(o.valid_rate), "schema + physics"],["Actually correct", pct(o.correct_rate_valid), "of valid tests (fault-injection GT)"],["AUROC combined UQ", fmt(a.U_comb), `vs. verbalised ${fmt(a.U_verbal)}`],["Precision of auto-accepted", S.triage.accept.precision==null?"–":pct(S.triage.accept.precision), `${S.triage.accept.n} accepted, ${S.triage.review.n} to review`]];
+  $("#expKpis").innerHTML = k.map(([t,v,s])=>`<div class="card p-4"><div class="text-[11px] text-slate-500 uppercase tracking-wide">${t}</div><div class="text-3xl font-bold mt-1">${v}</div><div class="text-[11px] text-slate-400 mt-1">${s}</div></div>`).join("");
+  $("#modelTable").innerHTML = `<table class="w-full text-sm"><tr class="text-left text-slate-500 text-xs"><th class="py-1">Model</th><th>Valid</th><th>Correct</th><th>Mut. score</th><th>Self-conf.</th><th>Latency</th><th>Tokens</th></tr>${Object.entries(S.by_model).map(([m,v])=>`<tr class="border-t border-slate-100"><td class="mono text-xs py-2">${m}</td><td>${pct(v.valid_rate)}</td><td>${pct(v.correct_rate)}</td><td>${pct(v.mean_ms_gen)}</td><td>${pct(v.mean_verbal_conf)}</td><td>${fmt(v.mean_latency_s,1)} s</td><td>${Math.round(v.mean_tokens)}</td></tr>`).join("")}</table>
+    <div class="text-xs text-slate-500 mt-3">Batch-level Spearman ρ (entropy ↔ correct rate): behavioural ${fmt(S.batch_spearman?.behav_entropy)}, structural ${fmt(S.batch_spearman?.struct_entropy)}, verbalised conf. ${fmt(S.batch_spearman?.mean_verbal_conf)}</div>`;
+  document.querySelectorAll("#tab-experiment img").forEach(i => i.src = i.src.split("?")[0] + "?t=" + Date.now());
+}
+
+async function loadRuns(){
+  const rs = await (await fetch("/api/runs")).json();
+  $("#runs").innerHTML = `<table class="w-full text-sm"><tr class="text-left text-slate-500 text-xs"><th class="py-1">Run</th><th>Req.</th><th>Model</th><th>N</th><th>Correct (GT)</th><th>Accept / Review / Reject</th><th>Behav. entropy</th><th></th></tr>${rs.map(r=>`<tr class="border-t border-slate-100"><td class="mono text-xs py-2">${r.run_id}</td><td>${r.rid}</td><td class="mono text-xs">${r.model}</td><td>${r.n}</td><td>${r.correct}/${r.n}</td><td>${r.accept} / ${r.review} / ${r.reject}</td><td>${fmt(r.batch_uq?.behav_entropy)}</td><td><button class="text-blue-600 text-xs font-semibold" onclick="loadRun('${r.run_id}');showTab('pipeline')">Open →</button></td></tr>`).join("")}</table>`;
+}
+init();
+</script>
+</body>
+</html>
