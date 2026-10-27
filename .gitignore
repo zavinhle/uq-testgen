@@ -7,3 +7,4 @@ demo/video/
 *.pyc
 results/_*.png
 results/test_r3.gif
+deck/~$*
