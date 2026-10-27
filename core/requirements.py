@@ -44,6 +44,34 @@ REQUIREMENTS = {
     },
 }
 
+# Plain-language versions for people (dashboard, slides). The LLM always receives "text" above,
+# exactly as in the experiment.
+PLAIN = {
+    "R1": ("Following a slower car",
+           "When our car drives behind a slower car, then after the first 10 seconds it must keep a safe "
+           "distance: at least 33 metres at 100 km/h (more when faster, less when slower)."),
+    "R2": ("The car ahead brakes hard",
+           "If the car ahead brakes hard, our car must not hit it and must stay at least 2 metres behind it."),
+    "R3": ("A car cuts in",
+           "If a car from the next lane cuts in at least 15 metres in front of us, our car must not hit it, "
+           "and 6 seconds later it must again keep a safe distance: at least 28 metres at 100 km/h (more when "
+           "faster, less when slower)."),
+    "R4": ("Keep to the chosen speed",
+           "When the road ahead is empty, our car must never drive more than 1 m/s (3.6 km/h) faster than "
+           "the speed the driver chose."),
+    "R5": ("Stop-and-go traffic",
+           "If the car ahead stops completely, our car must also stop without hitting it, leaving at least "
+           "3 metres."),
+    "R6": ("A hidden stopped car",
+           "If the car ahead suddenly changes lane and there is a stopped car behind it, our car must not hit "
+           "the stopped car and must stop at least 2 metres before it."),
+    "R7": ("Slowing down smoothly",
+           "When our car comes up on a slower car from far away (more than 100 metres), it must slow down "
+           "smoothly and never brake harder than a comfortable 3 m/s²."),
+}
+for _rid, (_title, _plain) in PLAIN.items():
+    REQUIREMENTS[_rid]["plain_title"], REQUIREMENTS[_rid]["plain"] = _title, _plain
+
 
 def _cut_in_time(sc):
     ego_lane = int(sc["ego"]["lane"])

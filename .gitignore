@@ -8,3 +8,4 @@ demo/video/
 results/_*.png
 results/test_r3.gif
 deck/~$*
+demo/record.log

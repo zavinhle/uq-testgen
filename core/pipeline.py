@@ -72,7 +72,7 @@ def run_pipeline(rid: str, model: str, n: int, workers: int = 5, emit=None, run_
     for s in samples:
         u = uq["per_sample"].get(s["idx"])
         s["uq"] = u
-        s["triage"] = triage(u["U_comb"] if u else None, not s["validation_errors"])
+        s["triage"] = triage(u["agreement"] if u else None, not s["validation_errors"])
     emit("uq", _jsonable({"batch": uq["batch"], "per_sample": {i: {k: v for k, v in u.items() if k != "features"} | {"triage": next(x["triage"] for x in samples if x["idx"] == i)}
                                                                 for i, u in uq["per_sample"].items()}}))
     emit("stage", {"stage": "uq", "status": "done"})

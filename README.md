@@ -12,9 +12,10 @@ requirement (NL)
   → ① LLM generation: N independent samples (scenario + STL-style oracle + verbalised confidence)
   → ② rule-based gate: schema + physical feasibility
   → ③ execution on the SUT in highway-env (ACC + AEB + lane keeping)
-  → ④ uncertainty quantification (no ground truth): structural entropy, behavioural entropy,
+  → ④ agreement (no ground truth): share of the N tests that behaved the same on the SUT
+       (= behavioural entropy up to ranking); research signals: structural entropy, behavioural entropy,
        oracle disagreement, verbalised confidence
-  → ⑤ risk-based triage: accept / human review / reject
+  → ⑤ risk-based triage: accept (agreement ≥ 60 %) / human review / reject (< 20 %)
   → ⑥ research mode: ground truth via fault injection (8 seeded controller faults)
   → ⑦ dashboard + experiment analysis
 ```

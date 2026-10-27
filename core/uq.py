@@ -9,6 +9,10 @@ execution on the system under test (SUT) only.
              DO when executed on the SUT (novel, CPS-specific)
   U_oracle   fraction of peer oracles that disagree with the sample's own verdict on its own trace
   U_comb     mean of U_struct and U_behav (U_oracle was uninformative on the development round)
+
+Main (presented) score: AGREEMENT = share of the N samples whose behaviour on the SUT falls in the same
+group as this sample. It ranks samples exactly like U_behav (both are monotone in the group size) and
+drives the triage: accept if agreement >= 60 %, reject if < 20 %, human review otherwise.
 """
 from __future__ import annotations
 
@@ -67,12 +71,36 @@ def behav_key(f: dict) -> tuple:
     return (f["verdict"], f["crashed"], f["aeb"], _bucket(f["min_gap"], [2, 15]))
 
 
+GAP_TEXT = ["closest gap < 2 m", "closest gap 2-15 m", "closest gap > 15 m"]
+
+
+def behav_label(f: dict) -> str:
+    """Readable name of the behaviour group; one-to-one with behav_key."""
+    parts = ["crash" if f["crashed"] else "no crash"]
+    if f["aeb"]:
+        parts.append("emergency brake")
+    parts.append("passes its check" if f["verdict"] else "fails its check")
+    parts.append(GAP_TEXT[_bucket(f["min_gap"], [2, 15])])
+    return " · ".join(parts)
+
+
+def agreement(feats: dict) -> tuple[dict, list]:
+    """feats: idx -> behaviour features. Returns idx -> (agreement, group label) and the groups, largest first."""
+    labels = {i: behav_label(f) for i, f in feats.items()}
+    c = Counter(labels.values())
+    n = len(labels)
+    per = {i: (c[lab] / n, lab) for i, lab in labels.items()}
+    groups = [{"label": lab, "count": k} for lab, k in c.most_common()]
+    return per, groups
+
+
 def quantify(samples: list[dict], traces: dict) -> dict:
     """samples: valid samples (each with 'scenario'); traces: idx -> trace on the SUT under test."""
     idx = [s["idx"] for s in samples]
     feats = {i: behav_features(s["scenario"], traces[i]) for i, s in zip(idx, samples)}
     s_per, s_ent = _surprisal([struct_key(s["scenario"]) for s in samples])
     b_per, b_ent = _surprisal([behav_key(feats[i]) for i in idx])
+    agree, groups = agreement(feats)
     per = {}
     for k, s in enumerate(samples):
         i = s["idx"]
@@ -85,17 +113,31 @@ def quantify(samples: list[dict], traces: dict) -> dict:
         except (TypeError, ValueError):
             u_verb = 1.0
         per[i] = {"U_verbal": u_verb, "U_struct": s_per[k], "U_behav": b_per[k], "U_oracle": u_orc,
-                  "U_comb": (s_per[k] + b_per[k]) / 2.0, "features": feats[i]}
-    return {"per_sample": per, "batch": {"struct_entropy": s_ent, "behav_entropy": b_ent,
+                  "U_comb": (s_per[k] + b_per[k]) / 2.0, "agreement": agree[i][0], "group": agree[i][1],
+                  "features": feats[i]}
+    return {"per_sample": per, "batch": {"groups": groups, "struct_entropy": s_ent, "behav_entropy": b_ent,
                                           "n_struct_clusters": len(set(struct_key(s["scenario"]) for s in samples)),
                                           "n_behav_clusters": len(set(behav_key(feats[i]) for i in idx)),
                                           "mean_verbal_conf": float(np.mean([1 - per[i]["U_verbal"] for i in idx])) if idx else None}}
 
 
-ACCEPT_T, REJECT_T = 0.25, 0.55
+ACCEPT_A, REJECT_A = 0.6, 0.2   # agreement thresholds
 
 
-def triage(u: float | None, valid: bool) -> str:
-    if not valid or u is None:
+def triage(agree: float | None, valid: bool) -> str:
+    if not valid or agree is None:
         return "reject"
-    return "accept" if u <= ACCEPT_T else ("review" if u < REJECT_T else "reject")
+    return "accept" if agree >= ACCEPT_A - 1e-9 else ("reject" if agree < REJECT_A - 1e-9 else "review")
+
+
+def annotate_run(run: dict) -> dict:
+    """Adds agreement / group / triage to a stored run (also runs saved before the agreement score existed)."""
+    valid = [s for s in run["samples"] if s.get("uq") and "features" in s["uq"]]
+    agree, groups = agreement({s["idx"]: s["uq"]["features"] for s in valid})
+    for s in run["samples"]:
+        if s["idx"] in agree:
+            s["uq"]["agreement"], s["uq"]["group"] = agree[s["idx"]]
+        s["triage"] = triage(agree[s["idx"]][0] if s["idx"] in agree else None, not s["validation_errors"])
+    if run.get("batch_uq") is not None:
+        run["batch_uq"]["groups"] = groups
+    return run

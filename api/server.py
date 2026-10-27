@@ -22,6 +22,7 @@ from core.oracle import TEMPLATES  # noqa: E402
 from core.pipeline import RUNS, run_pipeline  # noqa: E402
 from core.requirements import REQUIREMENTS  # noqa: E402
 from core.sut import MUTANTS  # noqa: E402
+from core.uq import annotate_run  # noqa: E402
 
 app = FastAPI(title="UQ-TestGen")
 GIFS = os.path.join(ROOT, "results", "gifs")
@@ -91,12 +92,13 @@ async def events(run_id: str):
 def list_runs():
     out = []
     for f in sorted(glob.glob(os.path.join(RUNS, "*.json")), key=os.path.getmtime, reverse=True):
-        r = json.load(open(f, encoding="utf-8"))
+        r = annotate_run(json.load(open(f, encoding="utf-8")))
         ss = r["samples"]
         out.append({"run_id": r["run_id"], "rid": r["rid"], "model": r["model"], "n": r["n"],
                     "correct": sum(1 for s in ss if (s.get("gt") or {}).get("correct")),
                     "accept": sum(s["triage"] == "accept" for s in ss), "review": sum(s["triage"] == "review" for s in ss),
                     "reject": sum(s["triage"] == "reject" for s in ss), "batch_uq": r.get("batch_uq"),
+                    "n_groups": len((r.get("batch_uq") or {}).get("groups") or []),
                     "wall_seconds": r.get("wall_seconds")})
     return out
 
@@ -106,7 +108,7 @@ def get_run(run_id: str):
     p = os.path.join(RUNS, f"{run_id}.json")
     if not os.path.exists(p):
         raise HTTPException(404)
-    return JSONResponse(json.load(open(p, encoding="utf-8")))
+    return JSONResponse(annotate_run(json.load(open(p, encoding="utf-8"))))
 
 
 @app.get("/api/runs/{run_id}/gif/{idx}")

@@ -13,11 +13,12 @@ from sklearn.metrics import roc_auc_score
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
-from core.uq import ACCEPT_T, REJECT_T, triage  # noqa: E402
+from core.uq import ACCEPT_A, REJECT_A, annotate_run  # noqa: E402
 
-METRICS = ["U_verbal", "U_struct", "U_behav", "U_oracle", "U_comb"]
+METRICS = ["U_verbal", "U_struct", "U_behav", "U_oracle", "U_comb", "U_disagree"]
 NAMES = {"U_verbal": "Verbalised conf.", "U_struct": "Structural entropy", "U_behav": "Behavioural entropy",
-         "U_oracle": "Oracle disagreement", "U_comb": "Combined (ours)"}
+         "U_oracle": "Oracle disagreement", "U_comb": "Combined",
+         "U_disagree": "Disagreement (ours)"}
 LABELS = ["correct & effective", "correct but weak", "wrong oracle", "false alarm oracle", "irrelevant scenario",
           "outside ODD", "invalid (rule gate)"]
 
@@ -25,7 +26,7 @@ LABELS = ["correct & effective", "correct but weak", "wrong oracle", "false alar
 def load_rows(pattern="exp_*.json"):
     rows, batches = [], []
     for f in sorted(glob.glob(os.path.join(ROOT, "results", "runs", pattern))):
-        r = json.load(open(f, encoding="utf-8"))
+        r = annotate_run(json.load(open(f, encoding="utf-8")))
         corr = []
         for s in r["samples"]:
             row = {"rid": r["rid"], "model": r["model"], "idx": s["idx"], "latency_s": s["latency_s"],
@@ -38,7 +39,8 @@ def load_rows(pattern="exp_*.json"):
             else:
                 row.update(correct=False, useful=False, label="invalid (rule gate)", ms_gen=0.0, ms_ref=0.0, sim_s=0.0)
             if s.get("uq"):
-                row.update({m: s["uq"][m] for m in METRICS})
+                row.update({m: s["uq"][m] for m in METRICS if m != "U_disagree"})
+                row.update(agreement=s["uq"]["agreement"], U_disagree=1.0 - s["uq"]["agreement"])
             rows.append(row)
         batches.append({"rid": r["rid"], "model": r["model"], **(r.get("batch_uq") or {}),
                         "correct_rate": float(np.mean(corr)) if corr else 0.0, "n": r["n"],
@@ -66,7 +68,7 @@ def summarize(rows, batches):
     valid = [r for r in rows if r["valid"] and "U_comb" in r]
     models = sorted({r["model"] for r in rows})
     out = {"n_samples": len(rows), "n_valid": len(valid), "models": models,
-           "thresholds": {"accept": ACCEPT_T, "reject": REJECT_T}}
+           "thresholds": {"accept_if_agreement_at_least": ACCEPT_A, "reject_if_agreement_below": REJECT_A}}
     out["overall"] = {
         "valid_rate": float(np.mean([r["valid"] for r in rows])) if rows else 0,
         "correct_rate_all": float(np.mean([r["correct"] for r in rows])) if rows else 0,
@@ -98,7 +100,7 @@ def summarize(rows, batches):
         x, y = [r[m] for r in valid], [r["ms_gen"] for r in valid]
         rho = spearmanr(x, y).statistic if len(set(x)) > 1 and len(set(y)) > 1 else None
         out["spearman_ms"][m] = None if rho is None or np.isnan(rho) else float(rho)
-    out["risk_coverage"] = {m: dict(zip(("coverage", "precision"), risk_coverage(rows, m))) for m in ("U_verbal", "U_comb")}
+    out["risk_coverage"] = {m: dict(zip(("coverage", "precision"), risk_coverage(rows, m))) for m in ("U_verbal", "U_disagree")}
     tri = {}
     for t in ("accept", "review", "reject"):
         sel = [r for r in rows if r["triage"] == t]
@@ -134,7 +136,7 @@ def summarize(rows, batches):
         "spearman_Ucomb_tokens": (lambda v: None if np.isnan(v) else float(v))(spearmanr([r["U_comb"] for r in valid if r["tokens"]], [r["tokens"] for r in valid if r["tokens"]]).statistic) if len(valid) > 2 else None,
         "sim_seconds_per_test_9_versions": float(np.mean([r["sim_s"] for r in valid] or [np.nan])),
     }
-    out["points"] = [{k: r.get(k) for k in ("rid", "model", "idx", "U_comb", "U_verbal", "ms_gen", "correct", "label", "latency_s")} for r in valid]
+    out["points"] = [{k: r.get(k) for k in ("rid", "model", "idx", "U_comb", "U_verbal", "agreement", "ms_gen", "correct", "label", "latency_s")} for r in valid]
     return out
 
 
@@ -162,9 +164,9 @@ def figures(S, rows, outdir):
     # 1. AUROC per metric
     fig, ax = plt.subplots(figsize=(7.2, 3.6), dpi=200)
     vals = [S["auroc_incorrect"][m] or 0 for m in METRICS]
-    cols = [C["ours"] if m in ("U_comb", "U_behav", "U_oracle") else C["base"] for m in METRICS]
-    b = ax.bar([NAMES[m] for m in METRICS], vals, color=cols, width=0.62)
-    ax.axhline(0.5, color=C["muted"], ls="--", lw=1); ax.text(4.45, 0.51, "random", color=C["muted"], fontsize=9, ha="right")
+    cols = [C["ours"] if m in ("U_comb", "U_behav", "U_disagree") else C["base"] for m in METRICS]
+    b = ax.bar([NAMES[m].replace(" ", "\n", 1) for m in METRICS], vals, color=cols, width=0.62)
+    ax.axhline(0.5, color=C["muted"], ls="--", lw=1); ax.text(5.45, 0.51, "random", color=C["muted"], fontsize=9, ha="right")
     for bi, v in zip(b, vals):
         ax.text(bi.get_x() + bi.get_width() / 2, v + 0.015, f"{v:.2f}", ha="center", fontsize=10, color=C["ink"])
     ax.set_ylim(0, 1.05); ax.set_ylabel("AUROC (detect incorrect tests)", color=C["ink"])
@@ -173,7 +175,7 @@ def figures(S, rows, outdir):
 
     # 2. risk-coverage
     fig, ax = plt.subplots(figsize=(6, 3.8), dpi=200)
-    for m, col, lab in (("U_comb", C["ours"], "Combined uncertainty (ours)"), ("U_verbal", C["base"], "Verbalised confidence")):
+    for m, col, lab in (("U_disagree", C["ours"], "Disagreement between the N tests (ours)"), ("U_verbal", C["base"], "AI's own confidence")):
         rc = S["risk_coverage"][m]
         ax.plot(rc["coverage"], rc["precision"], color=col, lw=2.2, label=lab)
     base = S["overall"]["correct_rate_valid"]
@@ -199,20 +201,46 @@ def figures(S, rows, outdir):
         ax.spines[s].set_visible(False)
     fig.tight_layout(); fig.savefig(os.path.join(outdir, "outcomes.png")); plt.close(fig)
 
-    # 4. scatter U_comb vs mutation score
+    # 4. scatter agreement vs mutation score
     fig, ax = plt.subplots(figsize=(6, 3.8), dpi=200)
     rng = np.random.default_rng(0)
     for ok, col, lab in ((True, C["good"], "correct"), (False, C["bad"], "incorrect")):
         pts = [p for p in S["points"] if p["correct"] == ok]
-        ax.scatter([p["U_comb"] + rng.normal(0, 0.01) for p in pts], [p["ms_gen"] + rng.normal(0, 0.008) for p in pts],
+        ax.scatter([p["agreement"] + rng.normal(0, 0.012) for p in pts], [p["ms_gen"] + rng.normal(0, 0.008) for p in pts],
                    s=22, alpha=0.75, color=col, label=lab, edgecolors="none")
-    ax.axvline(ACCEPT_T, color=C["muted"], ls="--", lw=1); ax.axvline(REJECT_T, color=C["muted"], ls="--", lw=1)
-    ax.text(ACCEPT_T / 2, 1.02, "accept", ha="center", fontsize=9, color=C["muted"])
-    ax.text((ACCEPT_T + REJECT_T) / 2, 1.02, "review", ha="center", fontsize=9, color=C["muted"])
-    ax.text((REJECT_T + 1) / 2, 1.02, "reject", ha="center", fontsize=9, color=C["muted"])
-    ax.set_xlabel("Combined uncertainty U_comb"); ax.set_ylabel("Mutation score (own oracle)")
-    ax.set_xlim(-0.03, 1.0); ax.set_ylim(-0.05, 1.08); ax.legend(frameon=False, fontsize=9, loc="center right"); _style(ax)
+    ax.axvline(REJECT_A, color=C["muted"], ls="--", lw=1); ax.axvline(ACCEPT_A, color=C["muted"], ls="--", lw=1)
+    ax.text(REJECT_A / 2, 1.02, "reject", ha="center", fontsize=9, color=C["muted"])
+    ax.text((REJECT_A + ACCEPT_A) / 2, 1.02, "review", ha="center", fontsize=9, color=C["muted"])
+    ax.text((ACCEPT_A + 1) / 2, 1.02, "accept", ha="center", fontsize=9, color=C["muted"])
+    ax.set_xlabel("Agreement (share of the N tests that behaved the same)"); ax.set_ylabel("Mutation score (own oracle)")
+    ax.set_xlim(0, 1.05); ax.set_ylim(-0.05, 1.08); ax.legend(frameon=False, fontsize=9, loc="center left"); _style(ax)
     fig.tight_layout(); fig.savefig(os.path.join(outdir, "scatter.png")); plt.close(fig)
+
+    # 6. simple slide figures: one comparison, one triage outcome
+    fig, ax = plt.subplots(figsize=(6, 3.2), dpi=200)
+    v = [S["auroc_incorrect"]["U_verbal"], S["auroc_incorrect"]["U_disagree"]]
+    bb = ax.barh(["Asking the AI\nhow sure it is", "Checking if its 10 tests\nbehave the same (ours)"], v,
+                 color=[C["base"], C["ours"]], height=0.55)
+    for bi, x in zip(bb, v):
+        ax.text(x + 0.01, bi.get_y() + bi.get_height() / 2, f"{x:.2f}", va="center", fontsize=13, fontweight="bold", color=C["ink"])
+    ax.axvline(0.5, color=C["muted"], ls="--", lw=1); ax.text(0.505, 1.42, "coin flip = 0.50", color=C["muted"], fontsize=9)
+    ax.set_xlim(0, 1.05); ax.set_xlabel("Spotting wrong tests (AUROC, 1.0 = perfect)")
+    for s_ in ("top", "right"):
+        ax.spines[s_].set_visible(False)
+    fig.tight_layout(); fig.savefig(os.path.join(outdir, "simple_detect.png")); plt.close(fig)
+
+    fig, ax = plt.subplots(figsize=(6, 3.2), dpi=200)
+    names = {"accept": "Accept", "review": "Human review", "reject": "Reject"}
+    ts = ["accept", "review", "reject"]
+    ok = [S["triage"][t]["correct"] for t in ts]
+    bad = [S["triage"][t]["n"] - S["triage"][t]["correct"] for t in ts]
+    ax.bar([names[t] for t in ts], ok, color=C["good"], width=0.6, label="test was correct")
+    ax.bar([names[t] for t in ts], bad, bottom=ok, color=C["bad"], width=0.6, label="test was wrong")
+    for i, t in enumerate(ts):
+        ax.text(i, ok[i] + bad[i] + 3, f"{ok[i]} ok / {bad[i]} wrong", ha="center", fontsize=10, color=C["ink"])
+    ax.set_ylabel("Generated tests"); ax.set_ylim(0, max(o + b for o, b in zip(ok, bad)) * 1.18)
+    ax.legend(frameon=False, fontsize=9, loc="upper right"); _style(ax)
+    fig.tight_layout(); fig.savefig(os.path.join(outdir, "simple_triage.png")); plt.close(fig)
 
     # 5. batch entropy vs correctness
     bx = [b for b in S["batches"] if "struct_entropy" in b]

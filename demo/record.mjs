@@ -9,7 +9,7 @@ const t0 = Date.now();
 const marks = [];
 const mark = (name) => { marks.push({ name, t: (Date.now() - t0) / 1000 }); console.log(name, marks.at(-1).t); };
 
-const browser = await chromium.launch({ channel: "chrome" });
+const browser = await chromium.launch({ channel: process.env.BROWSER_CHANNEL || "chrome" });
 const ctx = await browser.newContext({ viewport: { width: W, height: H } });
 const page = await ctx.newPage();
 // Capture frames with the Chrome DevTools screencast (encoded later with ffmpeg).
@@ -47,58 +47,64 @@ async function smoothScroll(y, ms = 1200) {
 await page.goto("http://127.0.0.1:8765/");
 await sleep(1500);
 mark("intro");
-await caption("UQ-TestGen: LLM-generated tests for an autonomous-driving ACC, with quantified uncertainty");
+await caption("UQ-TestGen: can we trust tests that an AI writes for a self-driving feature?");
 await sleep(3500);
 await page.selectOption("#rid", rid);
-await caption("1 · Pick a natural-language requirement");
+await caption("1 · A requirement in plain English");
 await sleep(3000);
 await page.selectOption("#model", model);
 await page.fill("#n", n); await page.dispatchEvent("#n", "input");
-await caption(`2 · Sample N=${n} independent tests from the LLM (${model}, via Codex CLI)`);
+await caption(`2 · Ask the AI for the same test ${n} times (${model})`);
 await sleep(2500);
 await page.click("#run");
 mark("gen_start");
-await caption("Generating… each sample = scenario + STL-style oracle + self-reported confidence");
+await caption("Each answer = a driving scenario + a pass/fail check + how sure the AI says it is");
 await page.waitForFunction(() => document.querySelectorAll("#samples .sample").length >= 1, null, { timeout: 240000 });
-await page.waitForFunction(() => document.querySelector("#batch")?.innerText.includes("clusters") && !document.querySelector("#batch").innerText.includes("– structural"), null, { timeout: 300000 });
+await page.waitForFunction(() => typeof state !== "undefined" && state.batch && state.batch.groups, null, { timeout: 300000 });
 mark("gen_end");
-await caption("3 · Rule gate → simulation in highway-env → uncertainty from sample disagreement (no ground truth)");
+await caption("3 · Run every test in the simulator and group the tests by what happened");
 await sleep(3500);
 await page.waitForFunction(() => !document.querySelector("#run").disabled, null, { timeout: 300000 });
 mark("pipeline_done");
-await caption("4 · Risk-based triage: accept / human review / reject — then ground truth via 8 seeded faults");
+await caption("4 · The vote: big group → accept · small group → human review · alone → reject");
 await smoothScroll(470);
 await sleep(4500);
 
-// open the most uncertain test, then the least uncertain one
-const order = await page.evaluate(() => Object.values(state.samples).filter(s => s.uq).sort((a, b) => b.uq.U_comb - a.uq.U_comb).map(s => s.idx));
-if (order.length) {
-  await page.evaluate((i) => { selIdx = i; render(); }, order[0]);
-  await caption("Most uncertain test: inspect its uncertainty signals and its ground-truth label");
-  await sleep(4500);
+// open the test that agrees least with the others, then the one that agrees most; captions state what really happened
+const info = await page.evaluate(() => {
+  const ss = Object.values(state.samples).filter(s => s.uq && s.uq.group);
+  const n = ss.length, tri = { accept: "accepted", review: "human review", reject: "rejected" };
+  return ss.map(s => ({ idx: s.idx, k: Math.round(s.uq.agreement * n), n, dec: tri[s.triage], truth: s.gt?.label || "", killed: s.gt?.killed_gen || [] }))
+    .sort((a, b) => a.k - b.k || a.idx - b.idx);
+});
+if (info.length) {
+  const lo = info[0], hi = info[info.length - 1];
+  await page.evaluate((i) => { selIdx = i; render(); }, lo.idx);
+  await caption(`Test #${lo.idx}: only ${lo.k} of ${lo.n} tests behaved like it → ${lo.dec} · truth checked later: ${lo.truth}`);
+  await sleep(5000);
   await smoothScroll(470);
-  await sleep(4000);
-  await page.evaluate((i) => { selIdx = i; render(); }, order[order.length - 1]);
-  await caption("Least uncertain test: auto-accept candidate — replay of the scenario on the SUT");
-  await sleep(6500);
-  const killed = await page.evaluate((i) => (state.samples[i].gt?.killed_gen || [])[0], order[order.length - 1]);
-  if (killed) {
-    await page.selectOption("#gifv", killed);
+  await sleep(3500);
+  await page.evaluate((i) => { selIdx = i; render(); }, hi.idx);
+  await caption(`Test #${hi.idx}: ${hi.k} of ${hi.n} tests behaved like it → ${hi.dec} · truth checked later: ${hi.truth}`);
+  await sleep(6000);
+  const rp = hi.killed.length ? hi : info.slice().reverse().find(x => x.killed.length);
+  if (rp) {
+    if (rp.idx !== hi.idx) { await page.evaluate((i) => { selIdx = i; render(); }, rp.idx); await sleep(800); }
+    await page.selectOption("#gifv", rp.killed[0]);
     await page.dispatchEvent("#gifv", "change");
-    await caption(`Same test on a faulty variant (${killed}) — its oracle detects the fault`);
+    await caption(`Test #${rp.idx} on a deliberately broken controller (${rp.killed[0]}) → its check catches the bug`);
     await sleep(7000);
   }
 }
 mark("experiment");
 await page.click("#tabs button[data-tab=experiment]");
 await smoothScroll(0, 400);
-await caption("Experiment: 7 requirements × 3 LLMs × 10 samples — does uncertainty predict incorrect tests?");
+await caption("Experiment: 210 AI-written tests (7 requirements × 3 AIs × 10 tries)");
 await sleep(5500);
-await smoothScroll(380);
-await caption("Behavioural uncertainty separates correct from incorrect tests better than the LLM's own confidence");
+await caption("Agreement spots wrong tests better than the AI's own confidence (0.90 vs 0.74) · 173 accepted, 171 correct");
 await sleep(6000);
 await smoothScroll(900);
-await caption("Gap: per-test signals are coarse, ground truth is costly, LLM self-confidence is overconfident → PhD research");
+await caption("Gap: the vote is still coarse inside one requirement, thresholds are hand-picked → PhD research");
 await sleep(6500);
 await caption("");
 await sleep(800);

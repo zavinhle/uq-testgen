@@ -2,6 +2,28 @@
 
 Numbers are from the held-out experiment (`results/summary.json`): 210 tests, 7 requirements, 3 LLMs, N = 10.
 
+## Demo 2 in three sentences (say this if you get lost)
+1. I ask the AI for the same test 10 times and run all 10 in a driving simulator.
+2. I group the tests by what happened (crash or not, emergency brake or not, pass or fail, how close the car got); the share of tests in a test's group is its **agreement**.
+3. High agreement → accept, low → a human reviews, alone → reject. Agreement spots wrong tests far better than the AI's own confidence (0.90 vs 0.74).
+
+## Questions the "vote" framing invites
+
+**Q: Isn't this just majority voting? What is new?**
+Sampling and comparing answers is known for chatbots (self-consistency, semantic entropy [Kuhn 2023, Farquhar 2024]). What is new is *what counts as the same answer*: for an executable test I compare **behaviour in the simulator**, not text. Two tests that look different but do the same thing agree; two that look alike but behave differently don't.
+
+**Q: Agreement vs. behavioural entropy, which is your metric?**
+The same signal in two forms. Entropy form −log(k/N)/log N and agreement 1 − k/N both depend only on the group size k and fall as k grows, so they rank tests identically (same AUROC, 0.90 / 0.71). I present agreement because it is easier to read; the backup slide shows the formal version.
+
+**Q: What if the majority is wrong?**
+It happens: the AI can be consistently wrong. In my live demo recording on 27 Oct, 4 of 8 tests for R6 formed the biggest group and all 4 were irrelevant scenarios; nothing was auto-accepted, but agreement alone could not tell them apart. In the 210-test experiment, 2 of 173 accepted tests were wrong. That is why agreement is a *risk signal*, not a proof, and why O1 (sharper signals, e.g. checking that the scenario actually exercises the requirement) and O2 (risk-aware thresholds) matter.
+
+**Q: Why 60% and 20%?**
+Hand-picked on the development round; they are not calibrated. Calibrating them against the severity of the requirement (risk = uncertainty × consequence) is O2.
+
+**Q: Who built the prototypes?**
+I designed the idea and the experiment and built the prototypes with AI coding assistance. That is also my motivation: I rely on AI-generated artefacts every day and need to know when to trust them.
+
 ## Likely from Prof. Shaukat Ali (uncertainty, foundation models, quantum)
 
 **Q: How does your notion of uncertainty relate to the U-Taxonomy / uncertainty-wise testing?**
@@ -42,7 +64,7 @@ Two uses. First, MRs as an oracle-free ground-truth proxy for generated tests. S
 Apply the metrics and triage to an industrial CPS case (e.g., elevator dispatching, where oracles and uncertainty were studied before). Measure review-effort savings with engineers. Collect real fault data.
 
 **Q: Within one requirement your AUROC is only 0.71. Is the approach useful?**
-Honestly, it is mostly a requirement-level signal so far: behavioural entropy vs. correct-rate gives ρ = −0.85. That already helps route whole requirements to review. Per-test discrimination is the first research gap. Only 17 incorrect tests in 6 batches means the estimate is noisy too.
+Honestly, it is mostly a requirement-level signal so far: batch-level behavioural entropy vs. correct-rate gives ρ = −0.85. That already helps route whole requirements to review. Per-test discrimination is the first research gap. Only 17 incorrect tests in 6 batches means the estimate is noisy too.
 
 ## General / motivation
 
@@ -56,8 +78,9 @@ The starting point was my LLM test generator with rule-based trust (schema, grou
 No doctorate. M.S. completed Feb 2026. No residence in Norway in the last 36 months. English at full professional proficiency.
 
 ## Key numbers to remember
-- AUROC for detecting incorrect tests: behavioural 0.90, combined 0.89, verbalised confidence 0.74
-- Within-batch AUROC: behavioural 0.71, verbalised 0.62
-- Triage: 162 auto-accepted (160 correct, 98.8%), 39 review (77%), 9 reject (33%)
+- AUROC for detecting incorrect tests: agreement (= behavioural entropy) 0.90, verbalised confidence 0.74
+- Within-batch AUROC: agreement 0.71, verbalised 0.62
+- Vote (≥ 60% accept, < 20% reject): 173 auto-accepted (171 correct, 98.8%), 30 review (19 correct, 63%), 7 reject (3 correct)
+- Previous triage on the combined score (v2 deck): 162 accepted, 160 correct
 - Overall correct: 92%. gpt-5.6-luna: 97% self-confidence vs 87% correct
 - Cost: ~16 s and ~2,900 tokens per sample. ~1 s to simulate one test on 9 SUT versions
