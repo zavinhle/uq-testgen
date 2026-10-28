@@ -1,0 +1,408 @@
+# Slide text — edit freely after the [tags]; keep the tags and the === SLIDE lines.
+# One line = one paragraph/bullet. **bold** = bold text. Empty a block to clear that box.
+# Requests that text cannot express: add a line starting with  >> NOTE:
+
+=== SLIDE 1 === 
+[#2] **PhD RESEARCH PROPOSAL**
+[#3] **When can we trust AI-generated tests?**
+      **Uncertainty quantification for risk-based testing of autonomous CPS**
+[#4] **Za Vinh Le**
+[notes] Good morning, and thank you for the invitation. My talk has three parts: first a real problem I hit with my own AI testing tool, shown in a demo; then how I want to solve it in the PhD, along the four objectives of the position; and finally what I bring.
+
+=== SLIDE 2 === 
+[#2] **MOTIVATION**
+[#3] **Write tests manually does not scale**
+[#6] **Read the spec**
+[#7] manual
+[#11] **Write test cases**
+[#12] manual
+[#16] **Write scripts**
+[#17] manual
+[#21] **Run scripts**
+[#22] manual
+[#26] **Test reports**
+[#27] manual
+[#28] **Every release: tests are rewritten by hand**
+      **AI can now read a spec and write tests [27]**
+[#30] **Goal**
+[#31] One tool: from the requirements document to a bug report, with AI writing the tests
+[#32] [27] J. Wang et al., “Software testing with large language models: Survey, landscape, and vision,” IEEE TSE, 2024.
+[notes] The first motivation comes from my daily work as a tester. For every release we read the specification, write test cases, write scripts, run them and file bugs — and when the specification changes, we do it again. The bottleneck is test design, not execution. LLMs can now read specifications and write tests, so I asked: can one pipeline go from the document to the report?
+
+=== SLIDE 3 === 
+[#2] **IMPLEMENTATION**
+[#3] **QA-Flow: From requirements to reports**
+[#6] **Requirements**
+[#11] **RAG over docs**
+[#16] **LLM Agents**
+[#21] **Tests and Scripts**
+[#26] **Execution**
+[#31] **Reports**
+[#34] **How QA-Flow checks AI-generated tests**
+[#35] Check the evidence: Each test must link to a requirement
+      Flag tests that need review: Tests without enough evidence receive Human Review
+      Check whether tests detect bugs: Run passing tests again with deliberately added bugs. If a test passes every version, flag it for review.
+[#37] **Demo application: A shopping website**
+[#38] Inputs: Software Requirement Specifications (SRS)
+      Testing Type: Web, API, Security Testing
+      LLM: Chat GPT
+[notes] This is QA-Flow, the tool I started from. Its six stages: the requirements document plus a discovery of the running application; retrieval over the documents; three LLM agents; a closed step language that code compiles into Playwright scripts; execution of web, API and security tests; and a report. Trust is handled by four hand-written rules. The demo application, ShopLite, contains seven planted defects so we know what should be found.
+
+=== SLIDE 4 === 
+[#2] **DEMO RESULTS**
+[#3] **AI-generated tests can report bugs that are not real**
+[#5] **34**
+[#6] **requirements**
+[#7] from the document
+[#9] **62**
+[#10] **tests**
+[#11] web 23 · API 26 · security 13
+[#13] **31 / 18 / 13**
+[#14] **PASS / FAIL / REVIEW**
+[#15] decided by the tool
+[#24] **6 FAILs are mistakes in the AI's own tests**
+[#25] 
+      They passed every trust rule
+      The report shows them as real bugs
+[notes] The result: QA-Flow extracted 34 requirements and ran 62 tests, and it found 5 of the 7 planted defects. But when I re-ran every failing test on a build with the planted defects fixed, 6 of the 18 FAILs still failed: the bug was in the AI's test, not in the shop. Every one of them passed all four trust rules. So the rules cannot tell a wrong test from a real defect. Let me show you one up close.
+
+=== SLIDE 5 === 
+[#3] **What PASS, FAIL, REVIEW and false alarm mean**
+[#2] **HOW TO READ THE REPORT**
+[#5] **PASS**
+[#6] The check held, and the test fails on a broken shops
+      It can catch bugs.
+[#8] **31 in Demo 1**
+[#10] **FAIL**
+[#11] The check did not hold 
+      The tool reports a bug in the shop.
+[#13] **18 in Demo 1**
+[#15] **REVIEW**
+[#16] The tool does not trust the test
+      A person decides.
+[#18] **13 in Demo 1**
+[#20] **FALSE ALARM**
+[#21] A FAIL where the mistake is in the AI's test, not in the shop. The tool cannot tell.
+[#23] **6 of the 18 FAILs**
+[#24] **The tool decides PASS / FAIL / REVIEW by itself. False alarms were found only afterwards, by re-running every FAIL on a shop with the planted bugs removed.**
+[notes] Before the results, here is how to read the report. PASS: the test's check held, and the test also fails on a broken version of the shop, so we know it can catch bugs. FAIL: the check did not hold, so the tool reports a bug in the shop. REVIEW: the tool does not trust the test, for example because it passes even on a broken shop, so a person decides. And a false alarm: a FAIL where the mistake is in the AI's own test, not in the shop. The tool cannot tell these apart; I found them afterwards by re-running every FAIL on a shop with the planted bugs removed.
+
+=== SLIDE 6 === 
+[#2] **PART A · A CLOSER LOOK**
+[#3] **Inside one wrong test: the SAVE10 discount code**
+[#4] **Requirement:  “SAVE10 gives 10% off.”   Planted bug in the shop: SAVE10 takes off €10 instead.**
+[#6] **What a correct test would do**
+[#9] 1. Put shoes (€89.00) in the cart
+[#12] 2. Enter the code SAVE10
+[#15] 3. Expect €80.10 → sees €79.00
+[#17] **FAIL → the real discount bug is found**
+[#19] **What the AI's test did**
+[#22] 1. Opened the cart directly — it was empty
+[#25] 2. Never reached the discount
+[#28] 3. Saw €0.00 → stopped
+[#30] **FAIL → reported as a bug, but the bug is in the test**
+[#31] **Same for privacy: the test logged in the wrong way, so the real data leak was never checked.**
+[notes] Let me show one of these wrong tests up close, because it explains the whole problem. The requirement says the code SAVE10 gives ten percent off. On the left is what a correct test would do: put a pair of shoes for 89 euros in the cart, enter SAVE10, and expect 80 euros 10. ShopLite has a planted bug and shows 79 euros, so the correct test fails and finds the bug. On the right is what the AI's test actually did: it opened the cart without adding anything, so the cart was empty, it never reached the discount, it saw zero euros and failed. The report files this as a bug, but the bug is in the test, and the real discount bug was never tested. The privacy tests made the same kind of mistake: they logged in the wrong way, got 'not logged in', and never checked whether one customer can see another customer's orders.
+
+=== SLIDE 7 === 
+[#2] **PART A · WHY THE RULES MISS IT**
+[#3] **The rules check the form of a test, not its meaning**
+[#8 r1c1] **Trust rule in QA-Flow**
+[#8 r1c2] **What it checks**
+[#8 r1c3] **The wrong SAVE10 test**
+[#8 r2c1] **Schema check**
+[#8 r2c2] The AI's answer has the right format
+[#8 r2c3] **✓ passed**
+[#8 r3c1] **Grounding check**
+[#8 r3c2] Pages and fields exist; the quote matches the document
+[#8 r3c3] **✓ passed**
+[#8 r4c1] **NEEDS REVIEW flag**
+[#8 r4c2] Tests with no source go to a person
+[#8 r4c3] **✓ not flagged**
+[#8 r5c1] **Fault-injection gate**
+[#8 r5c2] A passing test must fail on a broken shop
+[#8 r5c3] **– skipped (the test failed)**
+[#5] **No rule asks: does this test really test the requirement?**
+[#6] Three ways a test can be wrong:
+[#4] **Wrong scenario**
+[#10] **Wrong check**
+[#12] **Catches no bug**
+[#14] **Why it matters for self-driving cars**
+[#15] **AI already helps build them [8, 10]**
+      AI now writes their tests too [27]
+      **A wrong test means false safety**
+[#16] [8] J. Wu et al., “Reality bites: Assessing the realism of driving scenarios with large language models,” Proc. IEEE/ACM FORGE, 2024.
+      [10] C. Lu et al., “Foundation models for software engineering of cyber-physical systems: The road ahead,” ACM TOSEM, 2026.
+      [27] J. Wang et al., “Software testing with large language models: Survey, landscape, and vision,” IEEE TSE, 2024.
+[notes] Why did none of QA-Flow's rules catch it? Look at what each rule checks. The schema check: the answer is well-formed, passed. Grounding: the pages and fields exist and the quote is word-for-word, passed. The review flag: the test has a source, so it is not flagged. The fault-injection gate only looks at passing tests, and this one failed. So every rule checks the form of the test, and no rule asks whether the test really tests the requirement. A test can be wrong in three ways: the wrong scenario, the wrong check, or a test that catches no bug. In a web shop that wastes time. In an autonomous car, a wrong test means false safety, and AI is already being used to engineer exactly these systems.
+
+=== SLIDE 8 === 
+[#2] **PART B · THE PHD QUESTION**
+[#3] **When can we trust an AI-generated test?**
+[#5] **My idea   Ask the AI for the same test several times. Tests agree → trust more. Tests differ → a person checks. Known for chatbots [24], new for tests.**
+[#9] **Uncertainty in CPS testing**
+[#10] Uncertainty-wise test generation for cyber-physical systems [1]
+[#14] **Testing AI-enabled systems**
+[#15] Falsification: searching for failures of AI-enabled control systems [14]
+[#19] **Industrial test oracles**
+[#20] Machine learning as a test oracle for elevator software [16]
+[#27] **Gap   Uncertainty is studied for systems, robots and chatbots — not yet for AI that writes tests.**
+[#28] [1] M. Zhang et al., “Uncertainty-wise test case generation and minimization for cyber-physical systems,” J. Syst. Softw., 2019.
+      [14] Z. Zhang et al., “FalsifAI: Falsification of AI-enabled hybrid control systems guided by time-aware coverage criteria,” IEEE TSE, 2023.
+      [16] A. Arrieta et al., “Using machine learning to build test oracles: An industrial case study on elevators dispatching algorithms,” Proc. IEEE/ACM AST, 2021.
+      [24] S. Farquhar et al., “Detecting hallucinations in large language models using semantic entropy,” Nature, 2024.
+[notes] This leads to the question of my PhD: when can we trust an AI-generated test? My idea is simple: ask the AI for the same test several times and compare what the tests do. If they agree, we can trust them more; if they scatter, a human should look. This idea works for chatbot answers, in work on semantic entropy and self-consistency, but nobody has studied it for executable tests. It builds directly on your work: uncertainty-wise testing of cyber-physical systems, testing of driving systems and falsification, industrial oracles for elevators, and the use of foundation models in CPS engineering.
+
+=== SLIDE 9 === 
+[#2] **PART B · OBJECTIVES**
+[#3] **The four PhD objectives**
+[#7] **O1**
+[#8] **New UQ metrics**
+[#9] Which signals show that an AI-written test cannot be trusted?
+[#13] **O2**
+[#14] **Risk & trustworthiness**
+[#15] How should these signals decide accept / review / reject, given the safety risk?
+[#19] **O3**
+[#20] **Uncertainty vs. quality**
+[#21] How do they relate to correctness, bugs found and cost?
+[#25] **O4**
+[#26] **Future AI models**
+[#27] Do they still work for newer AI and quantum ML models?
+[#28] [30] InnoGuard: Hybrid and Generative Intelligence for Trustworthy Autonomous Cyber-Physical Systems, Horizon Europe MSCA Doctoral Network, GA No. 101169233, 2024–2028. https://cordis.europa.eu/project/id/101169233
+[notes] This is how I read the four objectives of the position, phrased as questions. What Demo 1 cannot do yet maps onto them.
+
+=== SLIDE 10 === 
+[#2] **PART B · GAPS → RESEARCH AGENDA**
+[#3] **From Demo 1's gaps to the PhD plan**
+[#11 r1c1] **From**
+[#11 r1c2] **What Demo 1 cannot do**
+[#11 r1c3] **What the PhD will do**
+[#11 r1c4] **Obj.**
+[#11 r2c1] **Demo 1**
+[#11 r2c2] Cannot tell a wrong test from a real bug (6 of 18)
+[#11 r2c3] Signals that show when a test is untrustworthy
+[#11 r2c4] **O1**
+[#11 r3c1] **Demo 1**
+[#11 r3c2] Every FAIL looks the same → a person checks all 18
+[#11 r3c3] Accept / review / reject based on risk
+[#11 r3c4] **O2**
+[#11 r4c1] **Demo 1**
+[#11 r4c2] Wrong tests hid 2 real bugs
+[#11 r4c3] Measure how trust relates to correctness and cost
+[#11 r4c4] **O3**
+[#11 r5c1] **Next**
+[#11 r5c2] One web shop, one AI model
+[#11 r5c3] Self-driving simulators, industrial cases, InnoGuard platform, new AI models
+[#11 r5c4] **O4**
+[notes] Each thing Demo 1 cannot do becomes an objective. The rules cannot tell a wrong test from a real defect: I need uncertainty signals for every generated test, that is O1. Every FAIL looks the same, so a human checks all of them: I need risk-based decisions, O2. Wrong tests hid real bugs, and we have no measure of what a generated test is worth: a study of uncertainty against correctness, bug-finding power and cost, O3. And everything so far is one web shop and one model: the PhD moves to autonomous systems, industrial cases and newer models, O4.
+
+=== SLIDE 11 === 
+[#2] **PART B · RESEARCH QUESTIONS**
+[#3] **Research questions and how I will answer them**
+[#5] **RQ1**
+[#6] **Which signals best predict a wrong AI-written test?**
+[#7] Compare signals (agreement, behaviour, model probabilities) on many generated tests
+[#9] **RQ2**
+[#10] **How can these signals support safe accept / review decisions?**
+[#11] Risk = signal × how severe a failure is; measure the review effort saved
+[#13] **RQ3**
+[#14] **How do they relate to bugs found and cost?**
+[#15] Large study: correctness, bugs found, run time, AI cost
+[#17] **RQ4**
+[#18] **Do they transfer to new and quantum AI models?**
+[#19] Re-apply them to newer models and to quantum ML [20, 21]
+[#20] [20] X. Wang et al., “Quantum machine learning-based test oracle for autonomous mobile robots,” Proc. IEEE/ACM ASE, 2025.
+      [21] X. Wang et al., “Application of quantum extreme learning machines for QoS prediction of elevators' software in an industrial context,” Companion Proc. ACM FSE, 2024.
+[notes] Four research questions, one per objective, each with its method, evaluated on open-source ACPS, industrial cases through the network such as the Mondragon elevator systems, and the InnoGuard platform, with fault-injection or expert ground truth.
+
+=== SLIDE 12 === 
+[#2] **PART B · WORK PLAN**
+[#3] **36-month plan with secondment and publications**
+[#5] **Year 1**
+[#7] **Year 2**
+[#9] **Year 3**
+[#10] **WP1 Survey & ACPS benchmark**
+[#12] **WP2 UQ metrics (O1)**
+[#14] **WP3 Uncertainty vs. quality study (O3)**
+[#16] **WP4 Risk & trust methods (O2)**
+[#18] **Secondment · Mondragon**
+[#20] **WP5 Industrial & InnoGuard eval.**
+[#22] **WP6 Advanced & quantum ML (O4)**
+[#24] **Thesis**
+[#27] P1 mapping study
+[#29] P2 metrics · ICST/ISSTA
+[#31] P3 industrial study
+[#33] P4 journal · TOSEM/TSE
+[#35] P5 QML · ASE/ICSE
+[#36] **Publications**
+[notes] A 36-month plan. Year 1: a mapping study, an open benchmark that includes both QA-Flow-style web/API artefacts and ACPS tests, and the first metric suite. Year 2: the empirical study, risk methods and the planned secondment at Mondragon. Year 3: industrial and InnoGuard-platform evaluation, the quantum ML extension, and the thesis. Secondment dates are indicative.
+
+=== SLIDE 13 === 
+[#2] **PART B · CONTRIBUTIONS**
+[#3] **Expected contributions to InnoGuard**
+[#6] **Metrics**
+[#7] Signals that tell when an AI-written test can be trusted
+[#10] **Methods**
+[#11] Accept / review / reject with safety-aware thresholds
+[#14] **Evidence**
+[#15] How trust relates to correctness, bugs found and cost
+[#18] **Open science**
+[#19] QA-Flow, an open benchmark and replication packages
+[#21] **Dissemination & network**
+[#22] Venues: ICSE, FSE, ASE, ISSTA, ICST; TOSEM, TSE, EMSE
+      Joint papers across the network, building on the team's foundation-model road maps [10, 11]
+      Secondment at Mondragon: industrial CPS case and oracle expertise
+      Training, summer schools and outreach of the doctoral network
+[#23] [10] C. Lu et al., “Foundation models for software engineering of cyber-physical systems: The road ahead,” ACM TOSEM, 2026.
+      [11] S. Ali et al., “Foundation models for the digital twins creation of cyber-physical systems,” Proc. ISoLA 2024, 2025.
+[notes] Four contributions — metrics, risk methods, empirical evidence and open artefacts — published at the main SE venues and developed jointly across the network, with the Mondragon secondment as the industrial anchor.
+
+=== SLIDE 14 === 
+[#2] **PART C · MY BACKGROUND**
+[#3] **My Background**
+[#7] **2019–23**
+[#8] **B.S. Electrical & Electronics Eng.**
+[#9] Research: Autonomous Driving Car Using Reinforcement Learning
+[#17] **2022–24**
+[#18] **Software Test Enginer **
+      **Bosch @ Vietnam**
+[#19] Automotive ECU Testing for ADAS system
+[#22] **2024–26**
+[#23] **M.S. Computer Science · KNU**
+[#24] Research: Software Testing and Verification
+[#27] **2026–**
+[#28] **Software Test Engineer**
+      **BNF @ Korea**
+[#29] Web/API/system testing
+      LLM, RAG & MCP-based test generation
+[#31] **Thesis  Towards Efficient Function Abstraction via Active Learning for Property Falsification (advisor: Prof. Yunja Choi)**
+      **Papers  Test generation for property checking (KCC 2025); stateful system, stateless techniques: test generation for controller software (KCSE 2026), with S. Hong and Y. Choi**
+[notes] My path: from hardware to automotive software testing at Bosch, then research on falsification and test generation for controller software at Kyungpook National University, and now LLM-based testing in industry — which is where QA-Flow comes from. The common thread is making automated testing of safety-relevant software trustworthy.
+
+=== SLIDE 15 === 
+[#2] **PART C · WHAT I BRING**
+[#3] **What I bring, and why this team**
+[#7] **Testing cyber-physical systems**
+[#8] Automotive ECU testing (CAN, CAPL, ETAS INCA); robotics (ROS/ROS2) and embedded domains
+[#12] **Verification research**
+[#13] Falsification, function abstraction via active learning, property-based testing — close to robustness-guided falsification [14]
+[#17] **LLMs for quality engineering**
+[#18] Built QA-Flow end to end: RAG, LLM agents, MCP-based workflows, Playwright
+[#22] **Python & empirical studies**
+[#23] Controlled experiments on test generators (KCC'25, KCSE'26); ground-truth check of QA-Flow in this talk
+[#25] **Why this team**
+[#26] Uncertainty-wise CPS testing (Simula)
+      ADS testing & falsification (NII)
+      Industrial CPS oracles & elevators (Mondragon)
+      My work sits exactly where the three meet
+[#27] [14] Z. Zhang et al., “FalsifAI: Falsification of AI-enabled hybrid control systems guided by time-aware coverage criteria,” IEEE TSE, 2023.
+[notes] What I bring maps onto the preferred profile: CPS testing practice, verification research, hands-on LLM tooling — QA-Flow in this talk — and empirical studies. And why this team: uncertainty-wise CPS testing at Simula, ADS testing and falsification with Prof. Arcaini, industrial oracles at Mondragon. My work sits exactly where these meet.
+
+=== SLIDE 16 === 
+[#2] **Thank you**
+[notes] To summarise: QA-Flow lets AI write and run tests end to end, and it finds real bugs. But its rules cannot spot the AI's own wrong tests. My PhD is about measuring when AI-generated tests can be trusted, with metrics, risk methods, evidence and transfer to autonomous systems, along O1 to O4. Thank you — I look forward to your questions.
+
+=== SLIDE 17 === 
+[#2] **Backup · QA-Flow demo: planted defects, faults and gates**
+[#18 r1c1] **Planted defect (ShopLite)**
+[#18 r1c2] **Type**
+[#18 r1c3] **Found by test(s)**
+[#18 r2c1] SAVE10 subtracts €10 instead of 10 %
+[#18 r2c2] web
+[#18 r2c3] not found
+[#18 r3c1] Unknown product → 500 instead of 404
+[#18 r3c2] API
+[#18 r3c3] TC-19.1
+[#18 r4c1] Quantity 0 / negative accepted
+[#18 r4c2] API
+[#18 r4c3] TC-09.2, TC-22.2, TC-24.2, TC-24.3, TC-25.1
+[#18 r5c1] No Content-Security-Policy header
+[#18 r5c2] security
+[#18 r5c3] TC-06.3, TC-29.1, TC-29.2, TC-30.1
+[#18 r6c1] Reflected XSS in search
+[#18 r6c2] security
+[#18 r6c3] TC-06.3, TC-30.1
+[#18 r7c1] Login reveals registered emails
+[#18 r7c2] security
+[#18 r7c3] TC-31.1, TC-32.1
+[#18 r8c1] IDOR: other users' orders readable
+[#18 r8c2] security
+[#18 r8c3] not found
+[#5] **Run details**
+[#6] 34 requirements, 62 tests (51 LLM-designed, 11 rule-derived)
+      Schema gate: 55 agent replies, 2 rejected, 0 repaired
+      Grounding gate: 0 tests ungrounded → NEEDS REVIEW
+      Fault gate: 13 broken builds; 13 passing tests never failed → NEEDS REVIEW
+      Wrong tests among FAILs: TC-10.1, TC-11.1, TC-20.1, TC-27.1, TC-27.2, TC-28.1
+      Total run time 23 min (gpt-5.6-luna)
+[notes] Details of the QA-Flow run behind Demo 1: which planted defects were found by which tests, and how many outputs each trust rule caught.
+
+=== SLIDE 18 === 
+[#2] **Backup · Threats to validity and mitigations**
+[#19 r1c1] **Threat**
+[#19 r1c2] **In the demos**
+[#19 r1c3] **Mitigation in the PhD**
+[#19 r2c1] **Construct**
+[#19 r2c2] Wrong test = still fails after the planted defects are fixed; planted defects approximate real faults
+[#19 r2c3] Expert-validated oracles; real fault data from industrial partners
+[#19 r3c1] **Internal**
+[#19 r3c2] Ground truth and prompts designed by me
+[#19 r3c3] Independent labelling; several prompt variants; pre-registered designs
+[#19 r4c1] **External**
+[#19 r4c2] One web shop, one AI model, 62 tests in one run
+[#19 r4c3] Open-source ACPS, industrial cases, InnoGuard platform, open-weight models
+[#19 r5c1] **Conclusion**
+[#19 r5c2] 6 wrong tests out of 18 FAILs: small numbers
+[#19 r5c3] Repeated runs, larger benchmarks, effect sizes and confidence intervals
+[notes] Main threats: planted defects and my own ground truth define what counts as wrong; one shop, one model and one run; and small numbers. Each has a mitigation in the plan.
+
+=== SLIDE 19 === 
+[#2] **Backup · Towards uncertainty of quantum ML models (O4)**
+[#3] **Starting point: QML is already used for test oracles of autonomous mobile robots and QoS prediction of elevator software [20, 21]**
+      **Sources of uncertainty: shot noise, hardware noise and model (epistemic) uncertainty add to data uncertainty**
+      **Transfer test: do sampling-based metrics still predict wrong oracle verdicts when the model is quantum? Repeated shots are natural samples**
+      **Coverage & mutation for quantum programs as ground-truth tools [19]**
+      **Road map: quantum AI for software engineering [22]**
+[#6] [19] S. Ali et al., “Assessing the effectiveness of input and output coverage criteria for testing quantum programs,” Proc. IEEE ICST, 2021.
+      [20] X. Wang et al., “Quantum machine learning-based test oracle for autonomous mobile robots,” Proc. IEEE/ACM ASE, 2025.
+      [21] X. Wang et al., “Application of quantum extreme learning machines for QoS prediction of elevators' software in an industrial context,” Companion Proc. ACM FSE, 2024.
+      [22] X. Wang et al., “Quantum artificial intelligence for software engineering: The road ahead,” ACM TOSEM, 2026.
+[notes] For objective 4: shot-based sampling is a natural analogue to sampling an LLM, so the same disagreement-based metrics can be tested, with quantum noise as an extra source of uncertainty.
+
+=== SLIDE 20 === 
+[#2] **References (1/2)**
+[#3] [1] M. Zhang, S. Ali, and T. Yue, "Uncertainty-wise test case generation and minimization for cyber-physical systems," J. Syst. Softw., vol. 153, pp. 1–21, 2019, doi: 10.1016/j.jss.2019.03.011.
+      [2] M. Zhang, S. Ali, T. Yue, R. Norgren, and O. Okariz, "Uncertainty-wise cyber-physical system test modeling," Softw. Syst. Model., vol. 18, no. 2, pp. 1379–1418, 2019, doi: 10.1007/s10270-017-0609-6.
+      [3] M. Zhang, B. Selic, S. Ali, T. Yue, O. Okariz, and R. Norgren, "Understanding uncertainty in cyber-physical systems: A conceptual model," in Proc. ECMFA, LNCS 9764, 2016, pp. 247–264, doi: 10.1007/978-3-319-42061-5_16.
+      [4] F. O. Catak, T. Yue, and S. Ali, "Uncertainty-aware prediction validator in deep learning models for cyber-physical system data," ACM TOSEM, vol. 31, no. 4, pp. 1–31, 2022, doi: 10.1145/3527451.
+      [5] L. Han, S. Ali, T. Yue, A. Arrieta, and M. Arratibel, "Uncertainty-aware robustness assessment of industrial elevator systems," ACM TOSEM, vol. 32, no. 4, pp. 1–51, 2023, doi: 10.1145/3576041.
+      [6] P. Valle, A. Arrieta, L. Han, S. Ali, and T. Yue, "Defining and generating multi-level and uncertainty-wise test oracles for cyber-physical systems," Softw. Syst. Model., vol. 24, no. 3, pp. 679–704, 2025, doi: 10.1007/s10270-025-01271-8.
+      [7] P. Valle, C. Lu, S. Ali, and A. Arrieta, "Evaluating uncertainty and quality of vision-language-action-enabled robots," arXiv:2507.17049, 2025.
+      [8] J. Wu, C. Lu, A. Arrieta, T. Yue, and S. Ali, "Reality bites: Assessing the realism of driving scenarios with large language models," in Proc. IEEE/ACM FORGE, 2024, pp. 40–51, doi: 10.1145/3650105.3652296.
+      [9] H. Sartaj, J. Boudjadar, M. Frasheri, S. Ali, and P. G. Larsen, "Identifying uncertainty in self-adaptive robotics with large language models," IEEE Softw., vol. 43, no. 1, pp. 89–97, 2026, doi: 10.1109/MS.2025.3620578.
+      [10] C. Lu, P. Valle, J. Wu, E. Isaku, H. Sartaj, A. Arrieta, and S. Ali, "Foundation models for software engineering of cyber-physical systems: The road ahead," ACM TOSEM, vol. 35, no. 9, pp. 1–58, 2026, doi: 10.1145/3830403.
+      [11] S. Ali, P. Arcaini, and A. Arrieta, "Foundation models for the digital twins creation of cyber-physical systems," in Proc. ISoLA 2024, LNCS, Springer, 2025, pp. 9–26, doi: 10.1007/978-3-031-75390-9_2.
+      [12] A. Calò, P. Arcaini, S. Ali, F. Hauer, and F. Ishikawa, "Generating avoidable collision scenarios for testing autonomous driving systems," in Proc. IEEE ICST, 2020, pp. 375–386, doi: 10.1109/ICST46399.2020.00045.
+      [13] T. Laurent, S. Klikovits, P. Arcaini, F. Ishikawa, and A. Ventresque, "Parameter coverage for testing of autonomous driving systems under uncertainty," ACM TOSEM, vol. 32, no. 3, pp. 1–31, 2023, doi: 10.1145/3550270.
+      [14] Z. Zhang, D. Lyu, P. Arcaini, L. Ma, I. Hasuo, and J. Zhao, "FalsifAI: Falsification of AI-enabled hybrid control systems guided by time-aware coverage criteria," IEEE TSE, vol. 49, no. 4, pp. 1842–1859, 2023, doi: 10.1109/TSE.2022.3194640.
+      [15] Z. Zhang, D. Lyu, P. Arcaini, L. Ma, I. Hasuo, and J. Zhao, "Effective hybrid system falsification using Monte Carlo tree search guided by QB-robustness," in Proc. CAV, LNCS, 2021, pp. 595–618, doi: 10.1007/978-3-030-81685-8_29.
+      [16] A. Arrieta, J. Ayerdi, M. Illarramendi, A. Agirre, G. Sagardui, and M. Arratibel, "Using machine learning to build test oracles: An industrial case study on elevators dispatching algorithms," in Proc. IEEE/ACM AST, 2021, pp. 30–39, doi: 10.1109/AST52587.2021.00012.
+
+=== SLIDE 21 === 
+[#2] **References (2/2)**
+[#3] [17] J. Ayerdi, V. Terragni, A. Arrieta, P. Tonella, G. Sagardui, and M. Arratibel, "Generating metamorphic relations for cyber-physical systems with genetic programming: An industrial case study," in Proc. ESEC/FSE, 2021, pp. 1264–1274, doi: 10.1145/3468264.3473920.
+      [18] A. Arrieta, P. Valle, J. A. Agirre, and G. Sagardui, "Some seeds are strong: Seeding strategies for search-based test case selection," ACM TOSEM, vol. 32, no. 1, pp. 1–47, 2023, doi: 10.1145/3532182.
+      [19] S. Ali, P. Arcaini, X. Wang, and T. Yue, "Assessing the effectiveness of input and output coverage criteria for testing quantum programs," in Proc. IEEE ICST, 2021, pp. 13–23, doi: 10.1109/ICST49551.2021.00014.
+      [20] X. Wang, Q. Xu, P. Arcaini, S. Ali, and T. Peyrucain, "Quantum machine learning-based test oracle for autonomous mobile robots," in Proc. IEEE/ACM ASE, 2025, pp. 3695–3706, doi: 10.1109/ASE63991.2025.00306.
+      [21] X. Wang, S. Ali, A. Arrieta, P. Arcaini, and M. Arratibel, "Application of quantum extreme learning machines for QoS prediction of elevators' software in an industrial context," in Companion Proc. ACM FSE, 2024, pp. 399–410, doi: 10.1145/3663529.3663859.
+      [22] X. Wang, S. Ali, and P. Arcaini, "Quantum artificial intelligence for software engineering: The road ahead," ACM TOSEM, vol. 35, no. 9, pp. 1–42, 2026, doi: 10.1145/3827610.
+      [23] L. Kuhn, Y. Gal, and S. Farquhar, "Semantic uncertainty: Linguistic invariances for uncertainty estimation in natural language generation," in Proc. ICLR, 2023. arXiv:2302.09664.
+      [24] S. Farquhar, J. Kossen, L. Kuhn, and Y. Gal, "Detecting hallucinations in large language models using semantic entropy," Nature, vol. 630, no. 8017, pp. 625–630, 2024, doi: 10.1038/s41586-024-07421-0.
+      [25] P. Manakul, A. Liusie, and M. J. F. Gales, "SelfCheckGPT: Zero-resource black-box hallucination detection for generative large language models," in Proc. EMNLP, 2023, pp. 9004–9017, doi: 10.18653/v1/2023.emnlp-main.557.
+      [26] Y. Huang, J. Song, Z. Wang, S. Zhao, H. Chen, F. Juefei-Xu, and L. Ma, "Look before you leap: An exploratory study of uncertainty analysis for large language models," IEEE TSE, vol. 51, no. 2, pp. 413–429, 2025, doi: 10.1109/TSE.2024.3519464.
+      [27] J. Wang, Y. Huang, C. Chen, Z. Liu, S. Wang, and Q. Wang, "Software testing with large language models: Survey, landscape, and vision," IEEE TSE, vol. 50, no. 4, pp. 911–936, 2024, doi: 10.1109/TSE.2024.3368208.
+      [28] M. Weiss and P. Tonella, "Fail-safe execution of deep learning based systems through uncertainty monitoring," in Proc. IEEE ICST, 2021, pp. 24–35, doi: 10.1109/ICST49551.2021.00015.
+      [29] E. Leurent, "An environment for autonomous driving decision-making," GitHub repository, 2018. https://github.com/Farama-Foundation/HighwayEnv
+      [30] InnoGuard: Hybrid and Generative Intelligence for Trustworthy Autonomous Cyber-Physical Systems, Horizon Europe MSCA Doctoral Network, GA No. 101169233, 2024–2028. https://cordis.europa.eu/project/id/101169233
+      [31] Z. V. Le, S. Hong, and Y. Choi, "Performance of test generation techniques on property checking: A case study," Korea Congress of Computing (KCC), 2025.
+      [32] Z. V. Le, S. Hong, and Y. Choi, "Stateful system, stateless techniques: Initial assessment on test generation for property checking of controller software," Korea Conference on Software Engineering (KCSE), 2026.

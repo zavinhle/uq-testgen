@@ -1,9 +1,0 @@
-{
- "seconds": 106,
- "n": 8,
- "accept": 7,
- "review": 0,
- "reject": 1,
- "run": "R6_gpt-5.6-luna_20261027-222037_7ab6",
- "notes": "[Play video, about 1:46.] Requirement R6: the car ahead moves to another lane and reveals a stopped car. The AI writes eight tests live. Each one runs in the simulator, and the dashboard groups them by what happened. Here seven of eight tests behaved the same way: no crash, emergency brake, the check passes. Seven out of eight is 88 percent, so they are accepted. One test behaved differently and stood alone, so it is rejected. Afterwards I checked the truth with eight broken controllers: all seven accepted tests were correct. The lonely test was actually correct too, just unusual. That is the price of a simple vote, and it is one of my research questions. At the end, an accepted test is replayed on a broken controller, and its check catches the bug."
-}
